@@ -5,7 +5,7 @@ TESTING TESTING TESTING
 echo 'Hey';
 // comment out the following two lines when deployed to production
 defined('YII_DEBUG') or define('YII_DEBUG', true);
-defined('YII_ENV') or define('YII_ENV', 'dev');
+// defined('YII_ENV') or define('YII_ENV', 'dev');
 error_reporting(-1);
 ini_set('display_errors', true);
 
