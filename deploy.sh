@@ -98,6 +98,7 @@ fi
 
 echo Invoking composer install in deployment directory $DEPLOYMENT_TARGET
 
+php composer.phar global require "fxp/composer-asset-plugin:1.0.0"
 php -d extension=php_intl.dll $DEPLOYMENT_TARGET/composer.phar install -v --prefer-dist --no-dev --optimize-autoloader --no-interaction
 
 # Post deployment stub
