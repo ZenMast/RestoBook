@@ -98,7 +98,7 @@ fi
 
 echo Invoking composer install in deployment directory $DEPLOYMENT_TARGET
 
-php -d extension=php_intl.dll composer.phar install
+php -d extension=php_intl.dll $DEPLOYMENT_TARGET/composer.phar install
 
 # Post deployment stub
 if [[ -n "$POST_DEPLOYMENT_ACTION" ]]; then
