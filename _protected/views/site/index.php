@@ -6,11 +6,11 @@ $this->title = Yii::t('app', Yii::$app->name);
 <div class="site-index">
 
     <div class="jumbotron">
-        <h1>Congratulations!</h1>
+        <h1>Sup?</h1>
 
-        <p class="lead">You have successfully installed Yii2 improved application template</p>
+        <p class="lead">This is going to be University of Tartu 2015 Spring semester Web Application Development course project developed by Olga Stepanova, Julia Sannikova and Roman Shumailov using Yii2 framework</p>
 
-        <p><a class="btn btn-lg btn-success" href="http://www.freetuts.org/tutorial/view?id=6">Read our tutorial</a></p>
+        <p><a class="btn btn-lg btn-success" href="https://github.com/ZenMast/RestoBook/wiki">Project Wiki</a></p>
     </div>
 
     <div class="body-content">
