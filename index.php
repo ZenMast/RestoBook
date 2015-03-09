@@ -5,9 +5,9 @@ defined('YII_DEBUG') or define('YII_DEBUG', true);
 error_reporting(-1);
 ini_set('display_errors', true);
 
-require(__DIR__ . '/protected/vendor/autoload.php');
-require(__DIR__ . '/protected/vendor/yiisoft/yii2/Yii.php');
+require(__DIR__ . '/_protected/vendor/autoload.php');
+require(__DIR__ . '/_protected/vendor/yiisoft/yii2/Yii.php');
 
-$config = require(__DIR__ . '/protected/config/web.php');
+$config = require(__DIR__ . '/_protected/config/web.php');
 
 (new yii\web\Application($config))->run();
