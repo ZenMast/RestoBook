@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $role app\rbac\models\Role */
 
 $this->title = Yii::t('app', 'Create User');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Users'), 'url' => ['index.php']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Users'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-create">

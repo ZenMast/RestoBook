@@ -80,7 +80,7 @@ class UserController extends AppController
                 $role->save(); 
             }  
 
-            return $this->redirect('index');      
+            return $this->redirect('index.php');      
         } 
         else 
         {
