@@ -21,6 +21,8 @@ _protected/vendor
 # composer itself is not needed
 #composer.phar
 
+_protected/runtime
+
 # Mac DS_Store Files
 .DS_Store
 
@@ -28,3 +30,8 @@ _protected/vendor
 phpunit.phar
 # local phpunit config
 /phpunit.xml
+*.log
+*.data
+
+index.php
+_protected/config/db.php
