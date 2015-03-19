@@ -17,7 +17,7 @@ php composer.phar update nothing
 WINDOWS:
 
 ```
-
+php composer.phar update nothing
 ```
 
 ##Migrations##
