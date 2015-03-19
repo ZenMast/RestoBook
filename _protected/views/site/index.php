@@ -3,7 +3,7 @@
 /* @var $this yii\web\View */
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
-
+use yii\jui\DatePicker;
 $this->title = Yii::t('app', Yii::$app->name);
 
 ?>
@@ -35,6 +35,11 @@ $this->title = Yii::t('app', Yii::$app->name);
                 <option value="asian">asian</option>
                 <option value="european">european</option>
                 </select>
+            </div>
+            <br>
+            <div class="Data">            
+                <?= DatePicker::widget(['name' => 'attributeName']) ?>
+
             </div>
             <br>
             <div class="Guests number">            
