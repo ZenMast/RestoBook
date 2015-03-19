@@ -33,5 +33,5 @@ phpunit.phar
 *.log
 *.data
 
-/index.php
 index.php
+_protected/config/db.php
