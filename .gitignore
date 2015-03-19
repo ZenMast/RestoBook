@@ -21,7 +21,9 @@ _protected/vendor
 _protected/runtime
 
 # composer itself is not needed
-composer.phar
+#composer.phar
+
+_protected/runtime
 
 # Mac DS_Store Files
 .DS_Store
@@ -30,3 +32,17 @@ composer.phar
 phpunit.phar
 # local phpunit config
 /phpunit.xml
+
+#
+*.log
+*.data
+
+#Starting page is not needed at the moment,
+#we don't change it and debug has to be turned off on azure
+index.php
+
+#Removed for security purposes
+_protected/config/db.php
+
+# ignore runtime stuff, we don't need it in VCS
+_protected/runtime

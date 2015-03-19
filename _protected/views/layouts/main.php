@@ -1,10 +1,13 @@
 <?php
 use app\assets\AppAsset;
 use app\widgets\Alert;
+use app\widgets\LoginWidget;
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
+use yii\bootstrap\ActiveForm;
+use yii\authclient\widgets\AuthChoice;
 
 /* @var $this \yii\web\View */
 /* @var $content string */
@@ -24,17 +27,20 @@ AppAsset::register($this);
 <body>
     <?php $this->beginBody() ?>
     <div class="wrap">
+
         <?php
             NavBar::begin([
                 'brandLabel' => Yii::t('app', Yii::$app->name),
                 'brandUrl' => Yii::$app->homeUrl,
                 'options' => [
-                    'class' => 'navbar-default navbar-fixed-top',
+                    'class' => 'navbar navbar-default',
+                    'renderInnerContainer' => false,
                 ],
             ]);
 
             // everyone can see Home page
-            $menuItems[] = ['label' => Yii::t('app', 'Home'), 'url' => ['/site/index']];
+            //$menuItems[] = ['label' => Yii::t('app', 'Home'), 'url' => ['/site/index']];
+            
 
             // we do not need to display Article/index, About and Contact pages to editor+ roles
             if (!Yii::$app->user->can('editor')) 
@@ -61,6 +67,13 @@ AppAsset::register($this);
             {
                 $menuItems[] = ['label' => Yii::t('app', 'Signup'), 'url' => ['/site/signup']];
                 $menuItems[] = ['label' => Yii::t('app', 'Login'), 'url' => ['/site/login']];
+                                
+               /*echo Nav::widget([
+                'options' => ['class' => 'navbar-nav pull-right', 'renderInnerContainer' => false ],
+                'items' => [loginWidget::widget()]
+            ]);*/
+            
+	           
             }
             // display Logout to all logged in users
             else 
@@ -73,11 +86,13 @@ AppAsset::register($this);
             }
 
             echo Nav::widget([
-                'options' => ['class' => 'navbar-nav navbar-right'],
+                'options' => ['class' => 'navbar-nav pull-right', 'renderInnerContainer' => false ],
                 'items' => $menuItems,
             ]);
-
+                      
+            
             NavBar::end();
+           
         ?>
 
         <div class="container">
@@ -87,6 +102,7 @@ AppAsset::register($this);
         <?= Alert::widget() ?>
         <?= $content ?>
         </div>
+        
     </div>
 
     <footer class="footer">

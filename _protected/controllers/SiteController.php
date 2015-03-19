@@ -8,6 +8,7 @@ use app\models\PasswordResetRequestForm;
 use app\models\ResetPasswordForm;
 use app\models\SignupForm;
 use app\models\ContactForm;
+use app\widgets\LoginWidget;
 use yii\helpers\Html;
 use yii\base\InvalidParamException;
 use yii\web\BadRequestHttpException;
@@ -15,7 +16,6 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use Yii;
-
 /**
  * Site controller.
  * It is responsible for displaying static pages, logging users in and out,
@@ -140,19 +140,16 @@ class SiteController extends Controller
      *
      * @return string|\yii\web\Response
      */
-    public function actionLogin()
+public function actionLogin()
     {
         if (!Yii::$app->user->isGuest) 
         {
             return $this->goHome();
         }
-
         // get setting value for 'Login With Email'
         $lwe = Yii::$app->params['lwe'];
-
         // if 'lwe' value is 'true' we instantiate LoginForm in 'lwe' scenario
         $model = $lwe ? new LoginForm(['scenario' => 'lwe']) : new LoginForm();
-
         // now we can try to log in the user
         if ($model->load(Yii::$app->request->post()) && $model->login()) 
         {
@@ -164,7 +161,6 @@ class SiteController extends Controller
             // if his account is not activated, he will have to activate it first
             Yii::$app->session->setFlash('error', 
                 Yii::t('app', 'You have to activate your account first. Please check your email.'));
-
             return $this->refresh();
         }    
         // account is activated, but some other errors have happened
@@ -175,7 +171,9 @@ class SiteController extends Controller
             ]);
         }
     }
-
+    
+    
+        
     /**
      * Logs out the user.
      *

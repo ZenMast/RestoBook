@@ -30,8 +30,9 @@ class AppAsset extends AssetBundle
     public $css = [
         'css/site.css',
     ];
-
-    public $js = [
+	public $jsOptions= [ 'position' => \yii\web\VIEW::POS_BEGIN];
+	
+    public $js = [ 'js/facebook.js'
     ];
 
     public $depends = [

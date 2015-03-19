@@ -34,8 +34,7 @@ class User extends UserIdentity
     public function rules()
     {
         return [
-            [['username', 'email'], 'filter', 'filter' => 'trim'],
-            [['username', 'email', 'status'], 'required'],
+   
             ['email', 'email'],
             ['username', 'string', 'min' => 2, 'max' => 255],
 
@@ -46,6 +45,9 @@ class User extends UserIdentity
                       
             ['username', 'unique', 'message' => 'This username has already been taken.'],
             ['email', 'unique', 'message' => 'This email address has already been taken.'],
+        		
+        	['phone', 'required'],
+        	['name', 'required'],
         ];
     }
 
@@ -92,12 +94,15 @@ class User extends UserIdentity
         return [
             'id' => Yii::t('app', 'ID'),
             'username' => Yii::t('app', 'Username'),
+        	'name' => Yii::t('app', 'Name'),
             'password' => Yii::t('app', 'Password'),
             'email' => Yii::t('app', 'Email'),
             'status' => Yii::t('app', 'Status'),
             'created_at' => Yii::t('app', 'Created At'),
             'updated_at' => Yii::t('app', 'Updated At'),
             'item_name' => Yii::t('app', 'Role'),
+        	'fbid' => Yii::t('app', 'Fbid'),
+        	'phone' => Yii::t('app', 'Phone'),
         ];
     }
 

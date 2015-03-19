@@ -17,7 +17,7 @@ return [
      *
      * If set to true users will have to login using email/password combo.
      */
-    'lwe' => false, 
+    'lwe' => true, 
 
     /**
      * Force Strong Password.

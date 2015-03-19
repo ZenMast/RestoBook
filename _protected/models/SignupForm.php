@@ -14,7 +14,11 @@ class SignupForm extends Model
     public $username;
     public $email;
     public $password;
+    public $password2;
+    public $facebook_id;
     public $status;
+    public $name;
+    public $phone;
 
     /**
      * Returns the validation rules for attributes.
@@ -36,9 +40,24 @@ class SignupForm extends Model
             ['email', 'unique', 'targetClass' => '\app\models\User', 
                 'message' => 'This email address has already been taken.'],
 
+        	['facebook_id', 'string', 'min' => 2, 'max' =>50],
+        		
+        	['phone', 'required'],
+        	['phone', 'string', 'min' => 3, 'max' =>50],
+        		
+        	['name', 'filter', 'filter' => 'trim'],
+            ['name', 'required'],
+            ['name', 'string', 'min' => 2, 'max' => 255],
+        		
             ['password', 'required'],
             // use passwordStrengthRule() method to determine password strength
             $this->passwordStrengthRule(),
+        	['password', 'compare', 'compareAttribute'=> 'password2', 'message'=>"Passwords don't match"],
+        		
+        	['password2', 'required'],
+        	// use passwordStrengthRule() method to determine password strength
+        	$this->passwordStrengthRule(),
+        	['password2', 'compare', 'compareAttribute'=> 'password', 'message'=>"Passwords don't match"],
 
             // on default scenario, user status is set to active
             ['status', 'default', 'value' => User::STATUS_ACTIVE, 'on' => 'default'],
@@ -80,7 +99,9 @@ class SignupForm extends Model
         return [
             'username' => Yii::t('app', 'Username'),
             'password' => Yii::t('app', 'Password'),
+        	'password2' => Yii::t('app', 'Repeat password'),
             'email' => Yii::t('app', 'Email'),
+        		
         ];
     }
 
@@ -100,6 +121,9 @@ class SignupForm extends Model
         $user->setPassword($this->password);
         $user->generateAuthKey();
         $user->status = $this->status;
+        $user->phone = $this->phone;
+        $user->name = $this->name;
+        $user->facebook_id = $this->facebook_id;
 
         // if scenario is "rna" we will generate account activation token
         if ($this->scenario === 'rna')
