@@ -16,7 +16,7 @@
         "yiisoft/yii2-swiftmailer": "*",
         "nenad/yii2-password-strength": "*",
         "mihaildev/yii2-ckeditor": "*",
-		"kartik-v/yii2-widget-activeform": "*",
+		"kartik-v/yii2-widget-activeform": "*"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",
