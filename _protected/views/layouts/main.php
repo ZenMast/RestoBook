@@ -60,6 +60,7 @@ AppAsset::register($this);
             if (Yii::$app->user->can('admin'))
             {
                 $menuItems[] = ['label' => Yii::t('app', 'Users'), 'url' => ['/user/index']];
+                $menuItems[] = ['label' => Yii::t('app', 'Restaurants'), 'url' => ['/restaurant/index']];
             }
             
             // display Signup and Login pages to guests of the site
