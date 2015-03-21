@@ -34,6 +34,9 @@ class User extends UserIdentity
     public function rules()
     {
         return [
+        		
+        	['email', 'filter', 'filter' => 'trim'],
+            [['email', 'status', 'phone', 'name'], 'required'],
    
             ['email', 'email'],
             ['username', 'string', 'min' => 2, 'max' => 255],
@@ -46,8 +49,6 @@ class User extends UserIdentity
             ['username', 'unique', 'message' => 'This username has already been taken.'],
             ['email', 'unique', 'message' => 'This email address has already been taken.'],
         		
-        	['phone', 'required'],
-        	['name', 'required'],
         ];
     }
 
