@@ -61,6 +61,7 @@ AppAsset::register($this);
             {
                 $menuItems[] = ['label' => Yii::t('app', 'Users'), 'url' => ['/user/index']];
                 $menuItems[] = ['label' => Yii::t('app', 'Restaurants'), 'url' => ['/restaurant/index']];
+                $menuItems[] = ['label' => Yii::t('app', 'Cuisines'), 'url' => ['/cuisine/index']];
             }
             
             // display Signup and Login pages to guests of the site
