@@ -392,4 +392,16 @@ public function actionLogin()
 
         return $this->redirect('login');
     }
+     public function actionTable_selection()
+    {
+        return $this->render('table_selection');
+    }
+     public function actionContact_details()
+    {
+        return $this->render('contact_details');
+    }
+    public function actionBooking_confirmation()
+    {
+        return $this->render('booking_confirmation');
+    }
 }
