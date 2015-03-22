@@ -8,7 +8,16 @@ $config = [
     //'language' => 'sr',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
-    'components' => [
+    'components' => [    		
+    	'authClientCollection' => [
+    				'class' => 'yii\authclient\Collection',
+    				'clients' => [
+    						'facebook' => [
+    								'class' => 'yii\authclient\clients\Facebook',
+    								'clientId' => '1553656018251147',
+    								'clientSecret' => '560f44487fc8afeaa4c098ea453f1a1a',
+    						],
+    	], ],
         'request' => [
             // !!! insert a secret key in the following (if it is empty) 
             // - this is required by cookie validation

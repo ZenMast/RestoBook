@@ -12,7 +12,12 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <div class="col-lg-5 well bs-component">
-        <div class="fb-login-button" data-max-rows="1" data-size="medium" data-show-faces="true" data-auto-logout-link="false"  data-scope="email,public_profile"></div>
+        
+        <?= yii\authclient\widgets\AuthChoice::widget([
+        'baseAuthUrl' => ['site/auth']
+		]) ?>
+		
+        <!--<div class="fb-login-button" data-max-rows="1" data-size="medium" data-show-faces="true" data-auto-logout-link="false"  data-scope="email,public_profile"></div>-->
         <p><?= Yii::t('app', 'Please fill out the following fields to login:') ?></p>
 
         <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
@@ -35,7 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="form-group">
             <?= Html::submitButton(Yii::t('app', 'Login'), ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
         </div>
-
+		
         <?php ActiveForm::end(); ?>
 
     </div>

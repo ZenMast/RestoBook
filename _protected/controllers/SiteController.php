@@ -71,7 +71,32 @@ class SiteController extends Controller
                 'class' => 'yii\captcha\CaptchaAction',
                 'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
             ],
+        	'auth' => [
+        				'class' => 'yii\authclient\AuthAction',
+        				'successCallback' => [$this, 'successCallback'],
+        	],
+        	
         ];
+    }
+    
+    
+    public function successCallback($client)
+    {
+    	$attributes = $client->getUserAttributes();
+    	// user login or signup comes here
+    	$user = User::find()
+    	->where([
+    			'email'=>$attributes['email'],
+    	])
+    	->one();
+    	if(!empty($user)){
+    		Yii::$app->user->login($user);
+    	}
+    	else{
+    		$session = Yii::$app->session;
+    		$session['attributes']=$attributes;
+    		$this->successUrl = \yii\helpers\Url::to(['signup']);
+    	}
     }
 
 //------------------------------------------------------------------------------------------------//
