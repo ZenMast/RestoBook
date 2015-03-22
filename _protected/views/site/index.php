@@ -28,7 +28,6 @@ $this->title = Yii::t('app', Yii::$app->name);
 						        'id' => 'resto_select',
 						        'multiple' => false, 
 // 						        'placeholder' => 'Choose...',
-								'value' => 'validatorcomplains',
 						        'class' => 'uk-width-medium-7-10']
 						     ]);
 						?>
