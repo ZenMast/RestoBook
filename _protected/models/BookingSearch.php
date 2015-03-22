@@ -5,12 +5,13 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Cuisine;
+use app\models\Booking;
+use yii\db\ActiveRecord;
 
 /**
- * CuisineSearch represents the model behind the search form about `app\models\Cuisine`.
+ * BookingSearch represents the model behind the search form about `app\models\Booking`.
  */
-class CuisineSearch extends Cuisine
+class BookingSearch extends Booking
 {
     /**
      * @inheritdoc
@@ -18,8 +19,8 @@ class CuisineSearch extends Cuisine
     public function rules()
     {
         return [
-            [['cuisine_id'], 'integer'],
-            [['cuisine'], 'safe'],
+            [['booking_id', 'table_id', 'people', 'user_id'], 'integer'],
+            [['date', 'time', 'comment', 'booking_time'], 'safe'],
         ];
     }
 
@@ -31,12 +32,6 @@ class CuisineSearch extends Cuisine
         // bypass scenarios() implementation in the parent class
         return Model::scenarios();
     }
-    
-    static public function findAllNamesIds() {
-    	return Cuisine::find()
-    	->select(['cuisine_id', 'cuisine'])
-    	-> all();
-    }
 
     /**
      * Creates data provider instance with search query applied
@@ -47,7 +42,7 @@ class CuisineSearch extends Cuisine
      */
     public function search($params)
     {
-        $query = Cuisine::find();
+        $query = Booking::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -62,10 +57,16 @@ class CuisineSearch extends Cuisine
         }
 
         $query->andFilterWhere([
-            'cuisine_id' => $this->cuisine_id,
+            'booking_id' => $this->booking_id,
+            'table_id' => $this->table_id,
+            'people' => $this->people,
+            'user_id' => $this->user_id,
+            'date' => $this->date,
+            'time' => $this->time,
+            'booking_time' => $this->booking_time,
         ]);
 
-        $query->andFilterWhere(['like', 'cuisine', $this->cuisine]);
+        $query->andFilterWhere(['like', 'comment', $this->comment]);
 
         return $dataProvider;
     }

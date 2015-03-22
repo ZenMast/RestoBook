@@ -240,6 +240,12 @@ class User extends UserIdentity
     {
         return $this->role->item_name;
     }
+    
+    public function getBookings() {
+    	
+    	return $this->hasMany(Booking::className(), ['user_id' => 'id']);
+    	
+    }
 
     /**
      * Generates new password reset token.

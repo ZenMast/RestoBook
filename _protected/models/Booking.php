@@ -35,7 +35,7 @@ class Booking extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['booking_id', 'table_id', 'people', 'user_id', 'date', 'time'], 'required'],
+            [['table_id', 'people', 'user_id', 'date', 'time'], 'required'],
             [['booking_id', 'table_id', 'people', 'user_id'], 'integer'],
             [['date', 'time', 'booking_time'], 'safe'],
             [['comment'], 'string', 'max' => 3000]
@@ -58,6 +58,8 @@ class Booking extends \yii\db\ActiveRecord
             'booking_time' => Yii::t('app', 'Booking Time'),
         ];
     }
+    
+    
 
     /**
      * @return \yii\db\ActiveQuery

@@ -43,6 +43,10 @@ $this->params['breadcrumbs'][] = $this->title;
             'email:email',
             'phone',
             'description',
+            [
+            	'label' => 'Bookings total',
+            	'value' => $bookingsTotal,
+            ]
         ],
     ]) ?>
 

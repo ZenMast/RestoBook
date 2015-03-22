@@ -31,7 +31,7 @@ class Table extends \yii\db\ActiveRecord
     {
         return [
             [['max_people', 'table_id', 'restaurant_id'], 'integer'],
-            [['table_id', 'restaurant_id'], 'required']
+            [['restaurant_id'], 'required']
         ];
     }
 
@@ -46,13 +46,23 @@ class Table extends \yii\db\ActiveRecord
             'restaurant_id' => Yii::t('app', 'Restaurant ID'),
         ];
     }
+    
+    /**
+     * Gets the restaurant name from the related Restaurants table.
+     *
+     * @return mixed
+     */
+    public function getRestaurantName()
+    {
+    	return $this->restaurant->name;
+    }
 
     /**
      * @return \yii\db\ActiveQuery
      */
     public function getBookings()
     {
-        return $this->hasMany(Bookings::className(), ['table_id' => 'table_id']);
+        return $this->hasMany(Booking::className(), ['table_id' => 'table_id']);
     }
 
     /**
@@ -60,6 +70,6 @@ class Table extends \yii\db\ActiveRecord
      */
     public function getRestaurant()
     {
-        return $this->hasOne(Restaurants::className(), ['restaurant_id' => 'restaurant_id']);
+        return $this->hasOne(Restaurant::className(), ['restaurant_id' => 'restaurant_id']);
     }
 }

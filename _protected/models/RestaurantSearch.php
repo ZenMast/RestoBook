@@ -31,6 +31,21 @@ class RestaurantSearch extends Restaurant
         // bypass scenarios() implementation in the parent class
         return Model::scenarios();
     }
+    
+    static public function findAllIds() {
+    	return Restaurant::find()
+    	->select(['restaurant_id'])
+    	-> all();
+    }
+    
+    
+    //Aggregation (count), shows total number of bookings per restaurant
+    public function countBookingsSum($id) {
+    	return RestaurantSearch::findBySql(
+    			'select count(*) from bookings,`tables` where bookings.table_id = `tables`.table_id and `tables`.restaurant_id = ' . $id
+    			)
+		->count();
+    }
 
     /**
      * Creates data provider instance with search query applied

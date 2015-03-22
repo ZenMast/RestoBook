@@ -24,7 +24,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'address')->textInput(['maxlength' => 200]) ?>
 
-    <?= $form->field($model, 'cuisine')->textInput() ?>
+    <?= $form->field($model, 'cuisine')->dropDownList($cuisines) ?>
 
     <?= $form->field($model, 'vegetarian')->textInput() ?>
 
