@@ -12,7 +12,7 @@ $this->title = Yii::t('app', Yii::$app->name);
         <div class="row">
             <div class="col-lg-4">
                 <div class="city">
-                    <select type="text" name="action" size="1">
+                    <select name="action" size="1">
                     <option value="" >--City--</option>
                     <option value="Tartu">Tartu</option>
                     <option value="Tallinn">Tallinn</option>
@@ -21,7 +21,7 @@ $this->title = Yii::t('app', Yii::$app->name);
                 </div>
                 <br>
                 <div class="restaurant">
-                    <select type="text" name="action" size="1">
+                    <select name="action" size="1">
                     <option value="" >--Restaurant--</option>
                     <option value="Pierre">Pierre</option>
                     <option value="Volga">Volga</option>
@@ -30,7 +30,7 @@ $this->title = Yii::t('app', Yii::$app->name);
                 </div>
                 <br>
                 <div class="kitchen">
-                    <select type="text" name="action" size="1">
+                    <select name="action" size="1">
                     <option value="" >--Kitchen--</option>
                     <option value="italian">italian</option>
                     <option value="asian">asian</option>
