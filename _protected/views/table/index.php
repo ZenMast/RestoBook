@@ -1,0 +1,66 @@
+<?php
+
+use yii\helpers\Html;
+use yii\grid\GridView;
+
+/* @var $this yii\web\View */
+/* @var $searchModel app\models\TableSearch */
+/* @var $dataProvider yii\data\ActiveDataProvider */
+
+$this->title = Yii::t('app', 'Tables');
+$this->params['breadcrumbs'][] = $this->title;
+?>
+<div class="table-index">
+
+    <h1>
+    <?= Html::encode($this->title) ?>
+    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+
+    <span class="pull-right">    
+            <?= Html::a(Yii::t('app', 'Create Table'), ['create'], ['class' => 'btn btn-success']) ?>
+	</span>  
+    </h1>        
+    
+    <?= GridView::widget([
+        'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+
+            'table_id',
+            'restaurant_id',
+            // restaurant name
+            [
+            'attribute'=>'restaurant',
+            'label' =>  'Restaurant Name',
+			'value' => 'restaurant.name',
+            ],
+            'max_people',
+
+            ['class' => 'yii\grid\ActionColumn',
+            'header' => "Menu",
+            'template' => '{view} {update} {delete}',
+                'buttons' => [
+                    'view' => function ($url, $model, $key) {
+                        return Html::a('', $url, ['title'=>'View table', 
+                            'class'=>'glyphicon glyphicon-eye-open']);
+                    },
+                    'update' => function ($url, $model, $key) {
+                        return Html::a('', $url, ['title'=>'Manage table', 
+                            'class'=>'glyphicon glyphicon-user']);
+                    },
+                    'delete' => function ($url, $model, $key) {
+                        return Html::a('', $url, 
+                        ['title'=>'Delete table', 
+                            'class'=>'glyphicon glyphicon-trash',
+                            'data' => [
+                                'confirm' => Yii::t('app', 'Are you sure you want to delete this table?'),
+                                'method' => 'post']
+                        ]);
+                    }
+                ]
+            ], // ActionColumn
+        ],
+    ]); ?>
+
+</div>
