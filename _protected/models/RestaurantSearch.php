@@ -48,7 +48,7 @@ class RestaurantSearch extends Restaurant
     
     
     //Aggregation (count), shows total number of bookings per restaurant
-    public function countBookingsSum($id) {
+    static public function countBookingsSum($id) {
     	return RestaurantSearch::findBySql(
     			'select count(*) from bookings,`tables` where bookings.table_id = `tables`.table_id and `tables`.restaurant_id = ' . $id
     			)
