@@ -93,9 +93,9 @@ class SiteController extends Controller
     		Yii::$app->user->login($user);
     	}
     	else{
-    		$session = Yii::$app->session;
-    		$session['attributes']=$attributes;
-    		$this->successUrl = \yii\helpers\Url::to(['signup']);
+    		Yii::$app->session->setFlash('error',
+    				Yii::t('app', 'User not found.'));
+    		
     	}
     }
 
