@@ -16,6 +16,10 @@ use yii\widgets\ActiveForm;
         <?= $form->field($user, 'username') ?>
         
         <?= $form->field($user, 'email') ?>
+        
+        <?= $form->field($user, 'name') ?>
+        
+        <?= $form->field($user, 'phone') ?>
 
         <?php if ($user->scenario === 'create'): ?>
             <?= $form->field($user, 'password')->widget(PasswordInput::classname(), []) ?>
