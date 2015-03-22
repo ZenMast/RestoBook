@@ -18,7 +18,9 @@
         "mihaildev/yii2-ckeditor": "*",
 		"kartik-v/yii2-widget-activeform": "*",
         "yiisoft/yii2-jui": "~2.0.0",
-        "yiisoft/yii2-authclient": "~2.0.0"
+        "yiisoft/yii2-authclient": "~2.0.0",
+        "demogorgorn/yii2-ajax-submit-button": "dev-master",
+        "kartik-v/yii2-widget-select2": "*"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

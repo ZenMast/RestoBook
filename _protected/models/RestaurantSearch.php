@@ -6,6 +6,8 @@ use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Restaurant;
+use yii\helpers\ArrayHelper;
+
 
 /**
  * RestaurantSearch represents the model behind the search form about `app\models\Restaurant`.
@@ -36,6 +38,12 @@ class RestaurantSearch extends Restaurant
     	return Restaurant::find()
     	->select(['restaurant_id'])
     	-> all();
+    }
+    
+    static public function findAllIdsToAssocString() {
+
+    	return ArrayHelper::map(RestaurantSearch::findAllIds(), 'restaurant_id', 'restaurant_id');
+    
     }
     
     

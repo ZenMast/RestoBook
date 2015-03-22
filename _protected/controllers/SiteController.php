@@ -55,6 +55,17 @@ class SiteController extends Controller
             ],
         ];
     }
+    
+    public function actionGetinfo()
+    {
+    	 
+    	if(!isset($_POST['resto_id']) || empty($_POST['resto_id']))
+    		return;
+    
+    	$rest_id = $_POST['resto_id'];
+    
+    	return $this->renderAjax('ajaxexample', ['message' => "THIS IS AJAX CALL DESIGNED JUST FOR SAKE OF EXTRA PROJECT POINT AND YOU CHOSE NR. " . $rest_id]);
+    }
 
     /**
      * Declares external actions for the controller.
