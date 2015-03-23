@@ -55,6 +55,17 @@ class SiteController extends Controller
             ],
         ];
     }
+    
+    public function actionGetinfo()
+    {
+    	 
+    	if(!isset($_POST['resto_id']) || empty($_POST['resto_id']))
+    		return;
+    
+    	$rest_id = $_POST['resto_id'];
+    
+    	return $this->renderAjax('ajaxexample', ['message' => "THIS IS AJAX CALL DESIGNED JUST FOR SAKE OF EXTRA PROJECT POINT AND YOU CHOSE NR. " . $rest_id]);
+    }
 
     /**
      * Declares external actions for the controller.
@@ -71,7 +82,32 @@ class SiteController extends Controller
                 'class' => 'yii\captcha\CaptchaAction',
                 'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
             ],
+        	'auth' => [
+        				'class' => 'yii\authclient\AuthAction',
+        				'successCallback' => [$this, 'successCallback'],
+        	],
+        	
         ];
+    }
+    
+    
+    public function successCallback($client)
+    {
+    	$attributes = $client->getUserAttributes();
+    	// user login or signup comes here
+    	$user = User::find()
+    	->where([
+    			'email'=>$attributes['email'],
+    	])
+    	->one();
+    	if(!empty($user)){
+    		Yii::$app->user->login($user);
+    	}
+    	else{
+    		Yii::$app->session->setFlash('error',
+    				Yii::t('app', 'User not found.'));
+    		
+    	}
     }
 
 //------------------------------------------------------------------------------------------------//

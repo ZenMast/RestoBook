@@ -6,6 +6,8 @@ use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Restaurant;
+use yii\helpers\ArrayHelper;
+
 
 /**
  * RestaurantSearch represents the model behind the search form about `app\models\Restaurant`.
@@ -38,9 +40,15 @@ class RestaurantSearch extends Restaurant
     	-> all();
     }
     
+    static public function findAllIdsToAssocString() {
+
+    	return ArrayHelper::map(RestaurantSearch::findAllIds(), 'restaurant_id', 'restaurant_id');
+    
+    }
+    
     
     //Aggregation (count), shows total number of bookings per restaurant
-    public function countBookingsSum($id) {
+    static public function countBookingsSum($id) {
     	return RestaurantSearch::findBySql(
     			'select count(*) from bookings,`tables` where bookings.table_id = `tables`.table_id and `tables`.restaurant_id = ' . $id
     			)
