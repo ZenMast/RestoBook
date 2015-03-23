@@ -4,14 +4,56 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use yii\jui\DatePicker;
+use app\models\RestaurantSearch;
+use kartik\select2\Select2;
+use demogorgorn\ajax\AjaxSubmitButton;
 $this->title = Yii::t('app', Yii::$app->name);
 
 ?>
 <!--index-->
 <div class="site-index">
     <div class="body-content">
+
+
         <div class="row">
             <div class="col-lg-4">
+                <div id="ajaxusage">
+                   <!--     Ajax usage -->
+                   <?php echo Html::beginForm('', 'post', ['class'=>'uk-width-medium-1-1 uk-form uk-form-horizontal']); ?>
+               
+                       <?= Select2::widget([
+                           'name' => 'resto_id',
+                           'data' => RestaurantSearch::findAllIdsToAssocString(),
+                           'options' => [
+                               'id' => 'resto_select',
+                               'multiple' => false, 
+//                                 'placeholder' => 'Choose...',
+                               'class' => 'uk-width-medium-7-10']
+                            ]);
+                       ?>
+                       
+                       Click for Ajax
+                       <?php AjaxSubmitButton::begin([
+                           'label' => 'Check',
+                           'ajaxOptions' => [
+                               'type'=>'POST',
+                               'url' => 'index.php?r=site%2Fgetinfo',
+                               /*'cache' => false,*/
+                               'success' => new \yii\web\JsExpression('function(html){
+                                   $("#output").html(html);
+                                   }'),                
+                           ],
+                           'options' => ['class' => 'customclass', 'type' => 'submit'],
+                           ]);
+                           AjaxSubmitButton::end();
+                       ?>
+                       
+                       <?php echo Html::endForm(); ?>
+                       
+                       <div id="output">
+                       
+                       </div>
+                </div>
                 <div class="city">
                     <select name="action" size="1">
                     <option value="" >--City--</option>
