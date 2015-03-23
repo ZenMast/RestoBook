@@ -190,4 +190,5 @@ $this->title = Yii::t('app', Yii::$app->name);
         </div>
     </div>
 </div>
+</div>
 
