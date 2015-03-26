@@ -40,6 +40,11 @@ class RestaurantSearch extends Restaurant
     	-> all();
     }
     
+    static public function findAllInfIds() {
+        return Restaurant::find()
+        ->select(['restaurant_id','name', 'city'])
+        -> all();
+    }
     static public function findAllIdsToAssocString() {
 
     	return ArrayHelper::map(RestaurantSearch::findAllIds(), 'restaurant_id', 'restaurant_id');

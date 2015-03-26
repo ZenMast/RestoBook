@@ -4,12 +4,12 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use yii\jui\DatePicker;
-use yii\helpers\ArrayHelper;
 use app\models\RestaurantSearch;
 use kartik\select2\Select2;
 use demogorgorn\ajax\AjaxSubmitButton;
 use app\models\Cuisine;
 use app\models\CuisineSearch;
+use yii\helpers\ArrayHelper;
 
 $this->title = Yii::t('app', Yii::$app->name);
 
@@ -17,7 +17,7 @@ $this->title = Yii::t('app', Yii::$app->name);
 <!--index-->
 <div class="site-index">
     <div class="body-content">
-
+        
 
         <div class="row">
             <div class="col-lg-4">
@@ -34,7 +34,8 @@ $this->title = Yii::t('app', Yii::$app->name);
 //                                 'placeholder' => 'Choose...',
                                'class' => 'uk-width-medium-7-10']
                             ]);
-                       ?>                                           
+                       ?>
+                       
                        Click for Ajax
                        <?php AjaxSubmitButton::begin([
                            'label' => 'Check',
@@ -51,7 +52,44 @@ $this->title = Yii::t('app', Yii::$app->name);
                            AjaxSubmitButton::end();
                        ?>
                        
-                       <?= Select2::widget([
+                       <?php echo Html::endForm(); ?>
+                       
+                       <div id="output">
+                         <br>
+                       </div>
+                </div>
+                <div class="city">
+                    <?= Select2::widget([
+                           'name' => 'city',
+                           'data' => ArrayHelper::map(RestaurantSearch::findAllInfIds(), 'restaurant_id', 'city'),
+                           'options' => [
+                               'id' => 'city_select',
+                               'multiple' => false, 
+//                                 'placeholder' => 'Choose...',
+                               'class' => 'uk-width-medium-7-10']
+                            ]);
+                    ?>  
+                    <?php echo Html::endForm(); ?>
+             
+
+                </div>
+                <br>
+                <div class="restaurant">
+                     <?= Select2::widget([
+                           'name' => 'restaurant',
+                           'data' => ArrayHelper::map(RestaurantSearch::findAllInfIds(), 'restaurant_id', 'name'),
+                           'options' => [
+                               'id' => 'restaurant_select',
+                               'multiple' => false, 
+//                                 'placeholder' => 'Choose...',
+                               'class' => 'uk-width-medium-7-10']
+                            ]);
+                    ?>  
+                    <?php echo Html::endForm(); ?>
+                </div>
+                <br>
+                <div class="kitchen">
+                   <?= Select2::widget([
                            'name' => 'kitchen',
                            'data' => ArrayHelper::map(CuisineSearch::findAllNamesIds(), 'cuisine_id', 'cuisine'),
                            'options' => [
@@ -60,32 +98,12 @@ $this->title = Yii::t('app', Yii::$app->name);
 //                                 'placeholder' => 'Choose...',
                                'class' => 'uk-width-medium-7-10']
                             ]);
-                       ?>  
-                       <?php echo Html::endForm(); ?>
-                       
-                       <div id="output">
-                       
-                       </div>
+                    ?>  
+                    <?php echo Html::endForm(); ?>
+
+                    
+                  
                 </div>
-                               
-                <div class="city">
-                    <select name="action" size="1">
-                    <option value="" >--City--</option>
-                    <option value="Tartu">Tartu</option>
-                    <option value="Tallinn">Tallinn</option>
-                    <option value="Narva">Narva</option>
-                    </select>
-                </div>
-                <br>
-                <div class="restaurant">
-                    <select name="action" size="1">
-                    <option value="" >--Restaurant--</option>
-                    <option value="Pierre">Pierre</option>
-                    <option value="Volga">Volga</option>
-                    <option value="Kapriis">Kapriis</option>
-                    </select>
-                </div>
-                <br>               
                 <br>
                 <div class="Data">            
                     <?= DatePicker::widget(['name' => 'attributeName']) ?>
@@ -123,7 +141,7 @@ $this->title = Yii::t('app', Yii::$app->name);
                     <select name="Time_Minute">
                     <option value="00">00</option>              
                     <option value="30" selected>30</option>                   
-                    </select>                    
+                    </select>               
                 </div>
                 <br>
                 <div class="Time_Till">            
@@ -158,6 +176,7 @@ $this->title = Yii::t('app', Yii::$app->name);
                     <option value="00">00</option>               
                     <option value="30" selected>30</option>               
                     </select>
+
                 </div>
                 <br>
                 <div class="Guests number">            
@@ -167,7 +186,21 @@ $this->title = Yii::t('app', Yii::$app->name);
                     <br>
                     <input class="button" name="button" type="button" value="Filter"/>
                     <br>
-                    <p>Realtime update <input type="checkbox"/></p>  
+                    <?php
+                        if(isset($_POST['realtimeup']) && 
+                           $_POST['realtimeup'] == 'No') 
+                        {
+                            echo "Don't need realtime update.";
+                        }
+                        else
+                        {
+                            echo "Need realtime update.";
+                        }    
+                         
+                    ?>
+                    <input type="checkbox" name="realtimeup" value="No" />
+                    
+
                 </div>
                 <br>
 
@@ -196,5 +229,5 @@ $this->title = Yii::t('app', Yii::$app->name);
         </div>
     </div>
 </div>
-</div>
+
 
