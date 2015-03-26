@@ -34,8 +34,7 @@ $this->title = Yii::t('app', Yii::$app->name);
 //                                 'placeholder' => 'Choose...',
                                'class' => 'uk-width-medium-7-10']
                             ]);
-                       ?>
-                       
+                       ?>                                           
                        Click for Ajax
                        <?php AjaxSubmitButton::begin([
                            'label' => 'Check',
@@ -52,6 +51,16 @@ $this->title = Yii::t('app', Yii::$app->name);
                            AjaxSubmitButton::end();
                        ?>
                        
+                       <?= Select2::widget([
+                           'name' => 'kitchen',
+                           'data' => ArrayHelper::map(CuisineSearch::findAllNamesIds(), 'cuisine_id', 'cuisine'),
+                           'options' => [
+                               'id' => 'kitchen_select',
+                               'multiple' => false, 
+//                                 'placeholder' => 'Choose...',
+                               'class' => 'uk-width-medium-7-10']
+                            ]);
+                       ?>  
                        <?php echo Html::endForm(); ?>
                        
                        <div id="output">
@@ -76,10 +85,7 @@ $this->title = Yii::t('app', Yii::$app->name);
                     <option value="Kapriis">Kapriis</option>
                     </select>
                 </div>
-                <br>
-                <?php $form = ActiveForm::begin(); ?>
-                <?= $form->field($model, 'cuisine')->dropDownList($cuisines, ['prompt'=>'Choose a Cuisine']) ?>
-                <?php ActiveForm::end(); ?>
+                <br>               
                 <br>
                 <div class="Data">            
                     <?= DatePicker::widget(['name' => 'attributeName']) ?>
