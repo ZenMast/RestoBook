@@ -4,9 +4,13 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use yii\jui\DatePicker;
+use yii\helpers\ArrayHelper;
 use app\models\RestaurantSearch;
 use kartik\select2\Select2;
 use demogorgorn\ajax\AjaxSubmitButton;
+use app\models\Cuisine;
+use app\models\CuisineSearch;
+
 $this->title = Yii::t('app', Yii::$app->name);
 
 ?>
@@ -54,6 +58,7 @@ $this->title = Yii::t('app', Yii::$app->name);
                        
                        </div>
                 </div>
+                               
                 <div class="city">
                     <select name="action" size="1">
                     <option value="" >--City--</option>
@@ -72,14 +77,9 @@ $this->title = Yii::t('app', Yii::$app->name);
                     </select>
                 </div>
                 <br>
-                <div class="kitchen">
-                    <select name="action" size="1">
-                    <option value="" >--Kitchen--</option>
-                    <option value="italian">italian</option>
-                    <option value="asian">asian</option>
-                    <option value="european">european</option>
-                    </select>
-                </div>
+                <?php $form = ActiveForm::begin(); ?>
+                <?= $form->field($model, 'cuisine')->dropDownList($cuisines, ['prompt'=>'Choose a Cuisine']) ?>
+                <?php ActiveForm::end(); ?>
                 <br>
                 <div class="Data">            
                     <?= DatePicker::widget(['name' => 'attributeName']) ?>

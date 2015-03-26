@@ -9,12 +9,16 @@ use app\models\ResetPasswordForm;
 use app\models\SignupForm;
 use app\models\ContactForm;
 use app\widgets\LoginWidget;
+use app\models\CuisineSearch;
 use yii\helpers\Html;
 use yii\base\InvalidParamException;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use yii\helpers\ArrayHelper;
+use app\models\MainFilterForm;
+
 use Yii;
 /**
  * Site controller.
@@ -122,7 +126,12 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+    	$cuisines = ArrayHelper::map(CuisineSearch::findAllNamesIds(), 'cuisine_id', 'cuisine');
+    	$model = new MainFilterForm();
+        return $this->render('index', [
+        		 'model' => $model,
+            	'cuisines' => $cuisines,
+            ]);
     }
 
     /**
