@@ -15,6 +15,11 @@ use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use yii\helpers\ArrayHelper;
+use app\models\CuisineSearch;
+use app\models\RestaurantSearch;
+use app\models\TableSearch;
+use app\models\FilterForm;
 use Yii;
 /**
  * Site controller.
@@ -122,7 +127,26 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        /*return $this->render('index');*/
+        $country = ArrayHelper::map(RestaurantSearch::findAllInfIds(), 'restaurant_id', 'country');
+        $city = ArrayHelper::map(RestaurantSearch::findAllInfIds(), 'restaurant_id', 'city');
+        $opening_time = ArrayHelper::map(RestaurantSearch::findAllInfIds(), 'restaurant_id', 'opening_time');
+        $closing_time = ArrayHelper::map(RestaurantSearch::findAllInfIds(), 'restaurant_id', 'closing_time');
+        $restaurant = ArrayHelper::map(RestaurantSearch::findAllInfIds(), 'restaurant_id', 'name');
+        $cuisines = ArrayHelper::map(CuisineSearch::findAllNamesIds(), 'cuisine_id', 'cuisine');
+        $guests = ArrayHelper::map(TableSearch::findAllIds(), 'table_id', 'max_people');
+        $model = new FilterForm();
+        return $this->render('index', [
+                'model' => $model,
+                'restaurant'=> $restaurant,
+                'country' => $country,
+                'opening_time' => $opening_time,
+                'closing_time' => $closing_time,
+                'city' => $city,
+                'guests' => $guests,
+                'cuisines' => $cuisines,
+            ]);
+     
     }
 
     /**

@@ -37,7 +37,7 @@ class TableSearch extends Table
     
     static public function findAllIds() {
     	return Table::find()
-    	->select(['table_id'])
+    	->select(['table_id','max_people'])
     	-> all();
     }
 
