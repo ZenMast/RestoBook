@@ -47,6 +47,9 @@ class TableSearch extends Table
      * @param array $params
      *
      * @return ActiveDataProvider
+     * 
+     * For Stanislav - generated query here (using join) is:
+     * SELECT `tables`.* FROM `tables` LEFT JOIN `restaurants` ON `tables`.`restaurant_id` = `restaurants`.`restaurant_id` 
      */
     public function search($params)
     {
