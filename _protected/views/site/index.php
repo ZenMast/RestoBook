@@ -17,8 +17,6 @@ $this->title = Yii::t('app', Yii::$app->name);
 <!--index-->
 <div class="site-index">
     <div class="body-content">
-        
-
         <div class="row">
             <div class="col-lg-4">
                 <div id="ajaxusage">
@@ -58,86 +56,33 @@ $this->title = Yii::t('app', Yii::$app->name);
                          <br>
                        </div>
                 </div>
-                 <div class="country">
+                <div class="filter">
                     <?php $form = ActiveForm::begin(); ?>
                     <?= $form->field($model, 'country')->dropDownList($country, ['prompt'=>'--Country--']) ?>
-                    <?php ActiveForm::end(); ?>
-                </div>
-                <div class="city">
-                    <?php $form = ActiveForm::begin(); ?>
-                    <?= $form->field($model, 'city')->dropDownList($city, ['prompt'=>'--City--']) ?>
-                    <?php ActiveForm::end(); ?>
-                </div>
-                <div class="restaurant">
-                    <?php $form = ActiveForm::begin(); ?>
-                    <?= $form->field($model, 'restaurant')->dropDownList($city, ['prompt'=>'--Restaurant--']) ?>
-                    <?php ActiveForm::end(); ?>
-                </div>
-                <div class="kitchen">
-                  <?php $form = ActiveForm::begin(); ?>
-                  <?= $form->field($model, 'cuisine')->dropDownList($cuisines, ['prompt'=>'--Cuisine--']) ?>
-                  <?php ActiveForm::end(); ?>          
-                </div>
-                <div class="Data">  
-                     <p>Date</p>          
-                    <?= DatePicker::widget(['name' => 'attributeName']) ?>
-
-                </div>
-                <div class="Time_From"> 
-                    <?php $form = ActiveForm::begin(); ?>
-                    <?= $form->field($model, 'opening_time')->dropDownList($opening_time, ['prompt'=>'--Opening--']) ?>
-                    <?php ActiveForm::end(); ?>
-                </div>
-                <div class="Time_Till"> 
-                    <?php $form = ActiveForm::begin(); ?>
+                    <?= $form->field($model, 'city')->dropDownList($city, ['prompt'=>'--City--']) ?>                 
+                    <?= $form->field($model, 'restaurant')->dropDownList($restaurant, ['prompt'=>'--Restaurant--']) ?>                  
+                    <?= $form->field($model, 'cuisine')->dropDownList($cuisines, ['prompt'=>'--Cuisine--']) ?>
+                    <p>Date</p>          
+                    <?= DatePicker::widget(['name' => 'attributeName']) ?> 
+                    <br> 
+                    <br>  
+                    <?= $form->field($model, 'opening_time')->dropDownList($opening_time, ['prompt'=>'--Opening--']) ?>     
                     <?= $form->field($model, 'closing_time')->dropDownList($closing_time, ['prompt'=>'--Closing--']) ?>
-                    <?php ActiveForm::end(); ?>
-                </div>
-                <div class="Guests number">            
-                    <?php $form = ActiveForm::begin(); ?>
                     <?= $form->field($model, 'guests')->dropDownList($guests, ['prompt'=>'--Guests--']) ?>
+                    <?= Html::submitButton('Filter'); ?>
                     <?php ActiveForm::end(); ?>       
                 </div>
-                <div class="FilterR">            
-                    <?php
-                        if(isset($_POST['realtimeup']) && 
-                           $_POST['realtimeup'] == 'No') 
-                        {
-                            echo "Don't need realtime update.";
-                        }
-                        else
-                        {
-                            echo "Need realtime update.";
-                        }    
-                         
-                    ?>
-                    <input type="checkbox" name="realtimeup" value="No" />
-                    
-
-                </div>
-                <br>
-
             </div>
-            <div class="col-lg-4"> 
-                <p>Restaurant Test</p>
-                <p>Location:Tartu Raatuse 1</p>
-                <p>Opened: 8:00-22:00</p>
-                <p>Kitchen:Italian</p>
-                <p>Max: 20 ppl</p>
-                <p>"We have best pizza in town"</p>
-                <?= Html::a('View', ['/site/table_selection'], ['class'=>'btn btn-primary']) ?>
-
-
-                    
+            <div class="col-lg-8"> 
+                <?php $result = RestaurantSearch::findAllInfIds('name','address');
+                    foreach ($result as $namerestaurant)
+                    echo 'Restaurant: '.$namerestaurant->name.'<br/><br/>',
+                    'Location: '.$namerestaurant->address.'<br/><br/>',
+                    Html::a('View', ['/site/table_selection'], ['class'=>'btn btn-primary']).'<br/><br/>'
+                ?>
             </div>
-            <div class="col-lg-4">    
-                <p>Restaurant Test2</p>
-                <p>Location:Tartu Raekoja plats 3</p>
-                <p>Opened: 9:00-23:00</p>
-                <p>Kitchen:european</p>
-                <p>Max: 100 ppl</p>
-                <p>"Modern cooking methods, the freshest of ingredients."</p>
-                <?= Html::a('View', ['/site/table_selection'], ['class'=>'btn btn-primary']) ?>
+            <div class="col-lg-0">
+                       
             </div>
         </div>
     </div>

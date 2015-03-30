@@ -13,13 +13,14 @@ $this->params['breadcrumbs'][] = $this->title;
     		</div>
     		<div class="col-lg-4">
     			<div class="Information">   							  	
-    				<p>Contact Details:</p>		        
-                    <p>Phone number: <input type="tel" pattern="\(\d\d\d\) ?\d\d\d-\d\d-\d\d" placeholder="(+372) ###-###-##"/></p>
-                    <p>Name: <input type="text" autofocus maxlength="30"/></p> 
-                    <p>E-mail: <input type="email"/></p>                 
-                    <textarea name="comments" rows="6" cols="30">Comment section...</textarea>
-                    <br>                 
-                	<input class="button" name="button" type="submit" value="Submit"/>
+                    <?php $form = ActiveForm::begin(); ?>
+                    <?= $form->field($model, 'name')->textInput(['maxlength' => 255]) ?>
+                    <?= $form->field($model, 'email')?>
+                    <?= $form->field($model, 'phone')->textInput(['maxlength' => 15]) ?>
+                    <?= $form->field($model, 'comment')->textArea(['rows' => 6])  ?>
+                    <?= Html::submitButton('Submit'); ?>
+                    <?php ActiveForm::end(); ?>
+
                 </div>
     		</div>
     		<div class="col-lg-4">

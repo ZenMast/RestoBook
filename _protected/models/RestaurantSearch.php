@@ -42,7 +42,7 @@ class RestaurantSearch extends Restaurant
     
     static public function findAllInfIds() {
         return Restaurant::find()
-        ->select(['restaurant_id','name', 'city','country','max_people','opening_time','closing_time'])
+        ->select(['restaurant_id','name', 'city','country','max_people','opening_time','closing_time','address'])
         -> all();
     }
    

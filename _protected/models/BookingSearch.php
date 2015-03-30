@@ -23,7 +23,11 @@ class BookingSearch extends Booking
             [['date', 'time', 'comment', 'booking_time'], 'safe'],
         ];
     }
-
+    static public function findAllbds() {
+        return Booking::find()
+        ->select(['booking_id','booking_time','date'])
+        -> all();
+    }
     /**
      * @inheritdoc
      */

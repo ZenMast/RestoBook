@@ -14,6 +14,10 @@ class FilterForm extends Model
 	public $restaurant;
 	public $cuisine;
 	public $guests;
+	public $booking_time;
+	public $date;
+
+
 
     public function rules()
     {
