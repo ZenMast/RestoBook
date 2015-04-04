@@ -5,6 +5,7 @@ use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use yii\jui\DatePicker;
 use app\models\RestaurantSearch;
+use janisto\timepicker\TimePicker;
 use kartik\select2\Select2;
 use demogorgorn\ajax\AjaxSubmitButton;
 use app\models\Cuisine;
@@ -62,12 +63,11 @@ $this->title = Yii::t('app', Yii::$app->name);
                     <?= $form->field($model, 'city')->dropDownList($city, ['prompt'=>'--City--']) ?>                 
                     <?= $form->field($model, 'restaurant')->dropDownList($restaurant, ['prompt'=>'--Restaurant--']) ?>                  
                     <?= $form->field($model, 'cuisine')->dropDownList($cuisines, ['prompt'=>'--Cuisine--']) ?>
-                    <p>Date</p>          
-                    <?= DatePicker::widget(['name' => 'attributeName']) ?> 
-                    <br> 
-                    <br>  
-                    <?= $form->field($model, 'opening_time')->dropDownList($opening_time, ['prompt'=>'--Opening--']) ?>     
-                    <?= $form->field($model, 'closing_time')->dropDownList($closing_time, ['prompt'=>'--Closing--']) ?>
+                    <br>
+                    <?= $form->field($model, 'date')-> widget(TimePicker::className(), [ 'name'  => 'book_date','mode' => 'date']) ?>
+                    <br>
+                    <?= $form->field($model, 'booking_time')-> widget(TimePicker::className(), [ 'name'  => 'book_time','mode' => 'time']) ?>
+                    <br>
                     <?= $form->field($model, 'guests')->dropDownList($guests, ['prompt'=>'--Guests--']) ?>
                     <?= Html::submitButton('Filter'); ?>
                     <?php ActiveForm::end(); ?>       
@@ -78,7 +78,7 @@ $this->title = Yii::t('app', Yii::$app->name);
                     foreach ($result as $namerestaurant)
                     echo 'Restaurant: '.$namerestaurant->name.'<br/><br/>',
                     'Location: '.$namerestaurant->address.'<br/><br/>',
-                    Html::a('View', ['/site/table_selection'], ['class'=>'btn btn-primary']).'<br/><br/>'
+                    Html::a('Book', ['/site/table_selection'], ['class'=>'btn btn-primary']).'<br/><br/>'
                 ?>
             </div>
             <div class="col-lg-0">

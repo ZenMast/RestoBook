@@ -132,21 +132,21 @@ class SiteController extends Controller
         /*return $this->render('index');*/
         $country = ArrayHelper::map(RestaurantSearch::findAllInfIds(), 'restaurant_id', 'country');
         $city = ArrayHelper::map(RestaurantSearch::findAllInfIds(), 'restaurant_id', 'city');
-        $opening_time = ArrayHelper::map(RestaurantSearch::findAllInfIds(), 'restaurant_id', 'opening_time');
-        $closing_time = ArrayHelper::map(RestaurantSearch::findAllInfIds(), 'restaurant_id', 'closing_time');
         $restaurant = ArrayHelper::map(RestaurantSearch::findAllInfIds(), 'restaurant_id', 'name');
         $cuisines = ArrayHelper::map(CuisineSearch::findAllNamesIds(), 'cuisine_id', 'cuisine');
         $guests = ArrayHelper::map(TableSearch::findAllIds(), 'table_id', 'max_people');
+        $date = ArrayHelper::map(BookingSearch::findAllbds(), 'booking_id','date');
+        $booking_time = ArrayHelper::map(BookingSearch::findAllbds(), 'booking_id','booking_time');
         $model = new FilterForm();
         return $this->render('index', [
                 'model' => $model,
                 'restaurant'=> $restaurant,
                 'country' => $country,
-                'opening_time' => $opening_time,
-                'closing_time' => $closing_time,
                 'city' => $city,
                 'guests' => $guests,
                 'cuisines' => $cuisines,
+                'date' => $date,
+                'booking_time' => $booking_time,
             ]);
      
     }
@@ -456,15 +456,11 @@ public function actionLogin()
     }
      public function actionTable_selection()
     {
-        $opening_time = ArrayHelper::map(RestaurantSearch::findAllInfIds(), 'restaurant_id', 'opening_time');
-        $closing_time = ArrayHelper::map(RestaurantSearch::findAllInfIds(), 'restaurant_id', 'closing_time');
         $booking_time = ArrayHelper::map(BookingSearch::findAllbds(), 'booking_id','booking_time');
         $date = ArrayHelper::map(BookingSearch::findAllbds(), 'booking_id','date');
         $model = new FilterForm();
         return $this->render('table_selection', [
                 'model' => $model,
-                'opening_time' => $opening_time,
-                'closing_time' => $closing_time,
                 'booking_time' => $booking_time,
                 'date' => $date,
             ]);
