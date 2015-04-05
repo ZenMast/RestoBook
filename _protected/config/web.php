@@ -30,6 +30,31 @@ $config = [
                 'pathMap' => ['@app/views' => '@webroot/themes/slate/views'],
                 'baseUrl' => '@web/themes/slate',
             ],
+            'class' => 'istranger\rSmartLoad\View',
+            'smartLoadConfig' => [
+            // Hashing method for resource names (if string value),
+            // see possible values: http://php.net/manual/en/function.hash.php#104987
+            // Can be assigned "callable", for example: function ($str) { return hash('sha256', $str); }
+             'hashMethod'               => 'md5', // default = 'crc32b'
+ 
+            // Types of resources, that will be tracked by current extension
+            // If =null, include all resource types: ['jsFile', 'cssFile', 'jsInline', 'cssInline']
+             'resourceTypes'            => ['jsFile', 'jsInline', 'cssFile', 'cssInline'],  // default = ['jsFile']
+ 
+            // Enable log on server and client side (debug mode)
+            // 'enableLog'                => true, // default = false
+ 
+            // Activate "smart" disabling of resources on all pages
+             'activateOnAllPages'       => true, // default = true
+ 
+            // List of resources, that always should be loaded on client
+            // (by name, hash, or full URL)
+            // 'alwaysReloadableResources' => ['bootstrap.js'],  // default = []
+             'alwaysReloadableResources' => ['bootstrap.min.js', 'facebook.js'],  // default = []
+            // Disable native script filter 
+            // (only for resource types specified in 'resourceTypes')
+            // 'disableNativeScriptFilter' => false, // default = true
+            ]
         ],
         'assetManager' => [
             'bundles' => [

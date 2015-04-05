@@ -21,7 +21,8 @@
         "yiisoft/yii2-authclient": "~2.0.0",
         "demogorgorn/yii2-ajax-submit-button": "dev-master",
         "kartik-v/yii2-widget-select2": "*",
-        "janisto/yii2-timepicker": "*"
+        "janisto/yii2-timepicker": "*",
+        "istranger/yii2-resource-smart-load": "*"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",
