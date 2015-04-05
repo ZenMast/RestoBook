@@ -1,11 +1,14 @@
 <?php
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
+use app\assets\FbAsset;
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model \app\models\LoginForm */
 $this->title = Yii::t('app', 'Login');
 $this->params['breadcrumbs'][] = $this->title;
+
+FbAsset::register($this);
 ?>
 <div class="site-login">
 
