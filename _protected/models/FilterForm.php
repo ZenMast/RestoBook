@@ -16,7 +16,6 @@ class FilterForm extends Model
 	public $guests;
 	public $booking_time;
 	public $date;
-    public $tables;
 
 
 

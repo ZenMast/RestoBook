@@ -69,24 +69,17 @@ $this->title = Yii::t('app', Yii::$app->name);
                     <?= $form->field($model, 'booking_time')-> widget(TimePicker::className(), [ 'name'  => 'book_time','mode' => 'time']) ?>
                     <br>
                     <?= $form->field($model, 'guests')->dropDownList($guests, ['prompt'=>'--Guests--']) ?>
-                    <?= Html::submitButton('Search',['onclick' =>'return actionFilter()']); ?>
+                    <?= Html::submitButton('Filter'); ?>
                     <?php ActiveForm::end(); ?>       
                 </div>
             </div>
-
-            <div class="col-lg-4"> 
-                <table class="table table-striped table-hover">
-                <?php $result = RestaurantSearch::findAllIdsRestaurant('name');?>
-                <?php foreach ($result as $restaurants_value): ?>
-                    <tr>
-                        <td align="center">
-                            <?php echo Html::a('Restaurant: '.$restaurants_value->name ).'<br/><br/>',
-                            
-                            Html::a('Book', ['/site/table_selection'], ['class'=>'btn btn-primary']).'<br/><br/>'; ?>                          
-                        </td>                        
-                    </tr>
-                <?php endforeach; ?>
-            </table>
+            <div class="col-lg-8"> 
+                <?php $result = RestaurantSearch::findAllInfIds('name','address');
+                    foreach ($result as $namerestaurant)
+                    echo 'Restaurant: '.$namerestaurant->name.'<br/><br/>',
+                    'Location: '.$namerestaurant->address.'<br/><br/>',
+                    Html::a('Book', ['/site/table_selection'], ['class'=>'btn btn-primary']).'<br/><br/>'
+                ?>
             </div>
             <div class="col-lg-0">
                        
