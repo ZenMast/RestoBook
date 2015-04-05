@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "024f30d7c9f1fdb1f72aae0507f8e396",
+    "hash": "972e07df6afe07696d3a646aa1ff7a51",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -177,6 +177,22 @@
                 "mask",
                 "plugins"
             ]
+        },
+        {
+            "name": "bower-asset/jqueryui-timepicker-addon",
+            "version": "v1.5.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/trentrichardson/jQuery-Timepicker-Addon.git",
+                "reference": "feafd1fbbc8c729a3bee47e43c82da111a9dfdff"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/trentrichardson/jQuery-Timepicker-Addon/zipball/feafd1fbbc8c729a3bee47e43c82da111a9dfdff",
+                "reference": "feafd1fbbc8c729a3bee47e43c82da111a9dfdff",
+                "shasum": ""
+            },
+            "type": "bower-asset-library"
         },
         {
             "name": "bower-asset/punycode",
@@ -387,6 +403,114 @@
                 "html"
             ],
             "time": "2013-11-30 08:25:19"
+        },
+        {
+            "name": "istranger/yii2-resource-smart-load",
+            "version": "v1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/IStranger/yii2-resource-smart-load.git",
+                "reference": "7fe931cfcea4fc5c5abcf1b95b874565afb61af3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/IStranger/yii2-resource-smart-load/zipball/7fe931cfcea4fc5c5abcf1b95b874565afb61af3",
+                "reference": "7fe931cfcea4fc5c5abcf1b95b874565afb61af3",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "extra": {
+                "bootstrap": "istranger\\rSmartLoad\\BootstrapClass"
+            },
+            "autoload": {
+                "psr-4": {
+                    "istranger\\rSmartLoad\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "G.Azamat",
+                    "email": "m@fx4web.com"
+                }
+            ],
+            "description": "The extension for prevent reload (on AJAX request) resources, which already exist on client",
+            "keywords": [
+                "JS",
+                "client",
+                "css",
+                "inline",
+                "prevent",
+                "reload",
+                "resources",
+                "scripts",
+                "yii2"
+            ],
+            "time": "2015-02-15 19:49:44"
+        },
+        {
+            "name": "janisto/yii2-timepicker",
+            "version": "0.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/janisto/yii2-timepicker.git",
+                "reference": "0f96c05fc25ee55769d6164975ba70d2f7b6a35f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/janisto/yii2-timepicker/zipball/0f96c05fc25ee55769d6164975ba70d2f7b6a35f",
+                "reference": "0f96c05fc25ee55769d6164975ba70d2f7b6a35f",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/jqueryui-timepicker-addon": ">=1.5.2",
+                "php": ">=5.4.0",
+                "yiisoft/yii2": "*",
+                "yiisoft/yii2-jui": "*"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.*",
+                "scrutinizer/ocular": "~1.1"
+            },
+            "type": "yii2-extension",
+            "extra": {
+                "asset-installer-paths": {
+                    "bower-asset-library": "vendor/bower"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "janisto\\timepicker\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "public domain"
+            ],
+            "authors": [
+                {
+                    "name": "Jani Mikkonen",
+                    "email": "janisto@php.net"
+                }
+            ],
+            "description": "Yii 2 widget for jQuery Timepicker Addon.",
+            "homepage": "https://github.com/janisto/yii2-timepicker",
+            "keywords": [
+                "date",
+                "datetime",
+                "extension",
+                "time",
+                "timepicker",
+                "widget",
+                "yii2"
+            ],
+            "time": "2015-03-26 12:59:50"
         },
         {
             "name": "kartik-v/yii2-krajee-base",
