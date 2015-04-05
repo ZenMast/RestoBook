@@ -1,3 +1,4 @@
+<?php $this->registerJsFile(Yii::$app->request->baseUrl.'/themes/slate/js/ajax.js',['depends' => [\yii\web\JqueryAsset::className()]]); ?>
 <?php
 
 use yii\helpers\Html;
@@ -21,6 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	</span> 
 	
 	</h1>
+	<?php  yii\widgets\Pjax::begin(['id' => 'pjaxBookings']) ?>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -61,5 +63,6 @@ $this->params['breadcrumbs'][] = $this->title;
             ], // ActionColumn
         ],
     ]); ?>
+    <?php  yii\widgets\Pjax::end() ?>
 
 </div>

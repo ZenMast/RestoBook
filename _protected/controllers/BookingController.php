@@ -12,6 +12,7 @@ use app\models\TableSearch;
 use yii\helpers\ArrayHelper;
 use app\models\UserSearch;
 
+
 /**
  * BookingController implements the CRUD actions for Booking model.
  */
@@ -35,6 +36,8 @@ class BookingController extends AppController
      */
     public function actionIndex()
     {
+    
+    	
         $searchModel = new BookingSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -43,6 +46,8 @@ class BookingController extends AppController
             'dataProvider' => $dataProvider,
         ]);
     }
+    
+    
 
     /**
      * Displays a single Booking model.
@@ -129,4 +134,16 @@ class BookingController extends AppController
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+    
+    public function actionLongpoll(){   	
+    	$id = BookingSearch::findLast()[0]['booking_id'];
+    	while (true) {      	 
+     		$newBook = BookingSearch::findNewer($id);    		
+            if ($newBook) {
+               return true;
+            }
+            sleep(10);
+        }
+    }
 }
+

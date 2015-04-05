@@ -74,4 +74,15 @@ class BookingSearch extends Booking
 
         return $dataProvider;
     }
+    
+    public static function findNewer($id){
+    	return BookingSearch::findBySql(
+    		'select booking_id FROM bookings where booking_id >' . $id)->all();   	
+    }
+    
+    
+    public static function findLast(){
+    	return BookingSearch::findBySql(
+    			'SELECT booking_id FROM bookings ORDER BY booking_id DESC LIMIT 1')->all();
+    }
 }

@@ -43,7 +43,9 @@ class AppController extends Controller
                         'allow' => true
                     ],
                     [
-                        // other rules
+                        'controllers' => ['booking'],
+                        'actions' => ['longpoll'],
+                        'allow' => true
                     ],
 
                 ], // rules
