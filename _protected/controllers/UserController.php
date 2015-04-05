@@ -6,6 +6,7 @@ use app\models\UserSearch;
 use app\rbac\models\Role;
 use yii\base\Model;
 use yii\web\NotFoundHttpException;
+use yii\filters\AccessControl;
 use Yii;
 
 /**
@@ -13,6 +14,32 @@ use Yii;
  */
 class UserController extends AppController
 {
+	
+	public function behaviors()
+	{
+		return [
+			[
+			'class' => 'yii\filters\HttpCache',
+				'only' => ['index'],
+				'lastModified' => function ($action, $params) {
+					$q = new \yii\db\Query();
+					return $q->from('user')->max('updated_at');
+				},
+			],
+			'access' => [
+					'class' => AccessControl::className(),
+					'rules' => [
+							[
+									'actions' => ['index', 'view', 'create', 'update', 'delete'],
+									'allow' => true,
+									'roles' => ['admin'],
+							],
+					], // rules
+			], // access
+		]; // return
+	
+	} // behaviors
+	
     /**
      * Lists all User models.
      *
@@ -80,7 +107,7 @@ class UserController extends AppController
                 $role->save(); 
             }  
 
-            return $this->redirect('index.php');      
+            return $this->redirect('view.php');      
         } 
         else 
         {
