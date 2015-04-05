@@ -40,7 +40,7 @@ class RestaurantSearch extends Restaurant
     	-> all();
     }
     
-    static public function findAllInfIds() {
+    static public function findAllIdsRestaurant() {
         return Restaurant::find()
         ->select(['restaurant_id','name', 'city','country','max_people','opening_time','closing_time','address'])
         -> all();
@@ -60,7 +60,32 @@ class RestaurantSearch extends Restaurant
     			)
 		->count();
     }
+    static public function countryDistinct() {
+        return RestaurantSearch::findBySql(
+                'select  DISTINCT country FROM restaurants'
+                )
+        ->all();
+    }
+    static public function cityDistinct() {
+        return RestaurantSearch::findBySql(
+                'select  DISTINCT city FROM restaurants'
+                )
+        ->all();
+    }
+     static public function rstaurantDistinct() {
+        return RestaurantSearch::findBySql(
+                'select  DISTINCT name FROM restaurants'
+                )
+        ->all();
+    }
+    static public function searchRestaurantsByWhere() {
+        return RestaurantSearch::findBySql(
 
+
+                'select * from restaurants where country = $country
+                ')
+        ->all();
+    }
     /**
      * Creates data provider instance with search query applied
      *
@@ -75,7 +100,9 @@ class RestaurantSearch extends Restaurant
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-
+          // The key is the attribute name on our "TableSearch" instance
+       
+       
         $this->load($params);
 
         if (!$this->validate()) {

@@ -130,9 +130,9 @@ class SiteController extends Controller
     public function actionIndex()
     {
         /*return $this->render('index');*/
-        $country = ArrayHelper::map(RestaurantSearch::findAllInfIds(), 'restaurant_id', 'country');
-        $city = ArrayHelper::map(RestaurantSearch::findAllInfIds(), 'restaurant_id', 'city');
-        $restaurant = ArrayHelper::map(RestaurantSearch::findAllInfIds(), 'restaurant_id', 'name');
+        $country = ArrayHelper::map(RestaurantSearch::countryDistinct(), 'country', 'country');
+        $city = ArrayHelper::map(RestaurantSearch::cityDistinct(), 'city', 'city');
+        $restaurant = ArrayHelper::map(RestaurantSearch::rstaurantDistinct(), 'name', 'name');
         $cuisines = ArrayHelper::map(CuisineSearch::findAllNamesIds(), 'cuisine_id', 'cuisine');
         $guests = ArrayHelper::map(TableSearch::findAllIds(), 'table_id', 'max_people');
         $date = ArrayHelper::map(BookingSearch::findAllbds(), 'booking_id','date');
@@ -150,6 +150,34 @@ class SiteController extends Controller
             ]);
      
     }
+     public function actionFilter()
+    {  
+     $country = $_GET['country'];
+      
+     $restaurants=new RestaurantSearch($country);
+     
+     $country = ArrayHelper::map(RestaurantSearch::searchRestaurantsByWhere(), 'country', 'country');
+    
+     return $this->render('index',[
+      'restaurants'=> $restaurants,
+      ]);
+    }
+       /* $country = ArrayHelper::map(RestaurantSearch::searchRestaurantsByWhere(), 'country', 'country');
+        $city = ArrayHelper::map(RestaurantSearch::searchRestaurantsByWhere(), 'city', 'city');
+        $restaurant = ArrayHelper::map(RestaurantSearch::searchRestaurantsByWhere(), 'name', 'name');
+        $cuisines = ArrayHelper::map(CuisineSearch::searchRestaurantsByWhere(), 'cuisine', 'cuisine');
+        $guests = ArrayHelper::map(TableSearch::searchRestaurantsByWhere(), 'max_people', 'max_people');
+        //$restaurants->Array(['country','city', 'restaurant','cuisine','guests']);
+        return $this->render('index',[
+                'restaurants'=> $restaurants,
+            ]
+            );
+     */
+    /*return $this->render('index',[
+                'restaurants'=> $restaurants,
+            ]);
+*/
+    
 
     /**
      * Displays the about static page.
@@ -457,12 +485,14 @@ public function actionLogin()
      public function actionTable_selection()
     {
         $booking_time = ArrayHelper::map(BookingSearch::findAllbds(), 'booking_id','booking_time');
+        $tables = ArrayHelper::map(TableSearch::findAllIds(), 'table_id', 'table_id');
         $date = ArrayHelper::map(BookingSearch::findAllbds(), 'booking_id','date');
         $model = new FilterForm();
         return $this->render('table_selection', [
                 'model' => $model,
                 'booking_time' => $booking_time,
                 'date' => $date,
+                'tables' => $tables,
             ]);
     }
     
