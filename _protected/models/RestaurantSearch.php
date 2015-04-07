@@ -40,11 +40,19 @@ class RestaurantSearch extends Restaurant
     	-> all();
     }
     
+   
     static public function findAllInfIds() {
         return Restaurant::find()
         ->select(['restaurant_id','name', 'city','country','max_people','opening_time','closing_time','address'])
         -> all();
     }
+    
+    static public function findAllData() {
+    	return RestaurantSearch::findBySql(
+    	 	'select r.restaurant_id, r.name, r.city, r.country, r.max_people, r.opening_time, r.closing_time, r.address, c.cuisine from restaurants r join cuisines c on r.cuisine=cuisine_id')
+    	-> all();
+    }
+    
    
     static public function findAllIdsToAssocString() {
 
@@ -60,6 +68,7 @@ class RestaurantSearch extends Restaurant
     			)
 		->count();
     }
+    
 
     /**
      * Creates data provider instance with search query applied
@@ -75,6 +84,8 @@ class RestaurantSearch extends Restaurant
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
+        
+        
 
         $this->load($params);
 
@@ -104,5 +115,9 @@ class RestaurantSearch extends Restaurant
             ->andFilterWhere(['like', 'description', $this->description]);
 
         return $dataProvider;
+    }
+    
+    static public function findByParams($country) {
+    	return RestaurantSearch::findBySql('select * from restaurants where country ="'.$country.'"')->all();
     }
 }

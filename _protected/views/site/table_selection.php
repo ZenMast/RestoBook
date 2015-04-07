@@ -12,17 +12,9 @@ $this->params['breadcrumbs'][] = $this->title;
     		<div class="col-lg-3">
     	  		<div class="Date1">
                     <?php $form = ActiveForm::begin(); ?>
-                    <?= $form->field($model, 'date')->dropDownList($date, ['prompt'=>'--Date--']) ?>
-                    <?php ActiveForm::end(); ?>
-            	</div>
-            </div>
-            <div class="col-lg-3">
-            	        
-            </div>
-            <div class="col-lg-3">
-            	<div class="Booking_time"> 
-                    <?php $form = ActiveForm::begin(); ?>
+                    <?= $form->field($model, 'date')->dropDownList($date, ['prompt'=>'--Date--']) ?>                    
                     <?= $form->field($model, 'booking_time')->dropDownList($booking_time, ['prompt'=>'--Booking time--']) ?>
+                    <?= 'You selected: '.$restaurant ?>
                     <?php ActiveForm::end(); ?>
             	</div>          
             </div>

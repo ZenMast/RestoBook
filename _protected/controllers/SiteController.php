@@ -19,10 +19,12 @@ use yii\helpers\ArrayHelper;
 use app\models\CuisineSearch;
 use app\models\RestaurantSearch;
 use app\models\TableSearch;
+use app\models\TableSelection;
 use app\models\BookingSearch;
 use app\models\FilterForm;
 use app\models\Form;
 use Yii;
+use app\models\Restaurant;
 /**
  * Site controller.
  * It is responsible for displaying static pages, logging users in and out,
@@ -127,28 +129,21 @@ class SiteController extends Controller
      *
      * @return string
      */
-    public function actionIndex()
+	public function actionIndex()
     {
-        /*return $this->render('index');*/
-        $country = ArrayHelper::map(RestaurantSearch::findAllInfIds(), 'restaurant_id', 'country');
-        $city = ArrayHelper::map(RestaurantSearch::findAllInfIds(), 'restaurant_id', 'city');
-        $restaurant = ArrayHelper::map(RestaurantSearch::findAllInfIds(), 'restaurant_id', 'name');
-        $cuisines = ArrayHelper::map(CuisineSearch::findAllNamesIds(), 'cuisine_id', 'cuisine');
-        $guests = ArrayHelper::map(TableSearch::findAllIds(), 'table_id', 'max_people');
-        $date = ArrayHelper::map(BookingSearch::findAllbds(), 'booking_id','date');
-        $booking_time = ArrayHelper::map(BookingSearch::findAllbds(), 'booking_id','booking_time');
         $model = new FilterForm();
+        $restaurants = RestaurantSearch::findAllData();
         return $this->render('index', [
                 'model' => $model,
-                'restaurant'=> $restaurant,
-                'country' => $country,
-                'city' => $city,
-                'guests' => $guests,
-                'cuisines' => $cuisines,
-                'date' => $date,
-                'booking_time' => $booking_time,
-            ]);
-     
+                'country' => ArrayHelper::map($restaurants, 'country', 'country'),
+                'opening_time' => ArrayHelper::map($restaurants, 'opening_time', 'opening_time'),
+                'closing_time' => ArrayHelper::map($restaurants, 'closing_time', 'closing_time'),
+                'city' => ArrayHelper::map($restaurants, 'city', 'city'),
+                'guests' => ArrayHelper::map($restaurants, 'max_people', 'max_people'),
+                'cuisines' => ArrayHelper::map($restaurants, 'cuisine', 'cuisine'),
+        		'restaurant' => ArrayHelper::map($restaurants, 'name', 'name'),
+        		'restaurants' => $restaurants
+            ]);    
     }
 
     /**
@@ -456,20 +451,24 @@ public function actionLogin()
     }
      public function actionTable_selection()
     {
+        $model = new TableSelection();
+        $restaurant = $_GET['restaurant'];
         $booking_time = ArrayHelper::map(BookingSearch::findAllbds(), 'booking_id','booking_time');
         $date = ArrayHelper::map(BookingSearch::findAllbds(), 'booking_id','date');
-        $model = new FilterForm();
-        return $this->render('table_selection', [
-                'model' => $model,
-                'booking_time' => $booking_time,
+    	return $this->render('table_selection', [
+    			'model' => $model,
+    			'booking_time' => $booking_time,
                 'date' => $date,
-            ]);
-    }
-    
+    			'restaurant' => $restaurant
+    	]);
+    }    
+
     public function actionBooking_confirmation()
     {
         return $this->render('booking_confirmation');
     }
+    
+    
     public function actionContact_details()
     {
         $model = new Form();
@@ -481,4 +480,26 @@ public function actionLogin()
         }    
 
     }
+    
+	public function actionFilter()
+    {  
+    	$responce = $_GET['FilterForm'];    
+    	$country_selected = $responce['country'];   	
+        $restaurants = RestaurantSearch::findByParams($country_selected);
+        $all_restaurants = RestaurantSearch::findAllData();
+        $model = new FilterForm();
+        return $this->render('index',[
+                'model' => $model,
+                'country' => ArrayHelper::map($all_restaurants, 'country', 'country'),
+                'opening_time' => ArrayHelper::map($all_restaurants, 'opening_time', 'opening_time'),
+                'closing_time' => ArrayHelper::map($all_restaurants, 'closing_time', 'closing_time'),
+                'city' => ArrayHelper::map($all_restaurants, 'city', 'city'),
+                'guests' => ArrayHelper::map($all_restaurants, 'max_people', 'max_people'),
+                'cuisines' => ArrayHelper::map($all_restaurants, 'cuisine', 'cuisine'),
+        		'restaurant' => ArrayHelper::map($all_restaurants, 'name', 'name'),
+        		'restaurants' => $restaurants
+            ]);      
+    }
+      
+    
 }
