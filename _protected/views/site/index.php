@@ -65,7 +65,7 @@ $this->title = Yii::t('app', Yii::$app->name);
                     <?= $form->field($model, 'cuisine')->dropDownList($cuisines, ['prompt'=>'--Cuisine--']) ?> 
                     <?= $form->field($model, 'date')-> widget(TimePicker::className(), [ 'name'  => 'book_date','mode' => 'date']) ?>    
                     <?= $form->field($model, 'booking_time')-> widget(TimePicker::className(), [ 'name'  => 'book_time','mode' => 'time']) ?>
-                    <?= $form->field($model, 'guests')->dropDownList($guests, ['prompt'=>'--Guests--']) ?>               	              
+                    <?= $form->field($model, 'guests') ?>              	              
                		<?= Html::submitButton(Yii::t('app', 'Filter'), ['class' => 'btn btn-primary']) ?>
                     <?php ActiveForm::end(); ?>                          
 			</div> 
@@ -85,7 +85,8 @@ $this->title = Yii::t('app', Yii::$app->name);
             <?php if (($i + 1) % 3 == 0 ||$i == sizeof($restaurants)){echo '</div>';} ?>           	
             <?php } ?>	
             </div>	
-            </div>			                          	
+          </div>	
+          </div>			                          	
 </div>	
 </div>	
 </div>	
