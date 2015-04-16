@@ -2,6 +2,7 @@
 use nenad\passwordStrength\PasswordInput;
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
+use app\assets\FbAsset;
 
 
 /* @var $this yii\web\View */
@@ -10,6 +11,7 @@ use yii\bootstrap\ActiveForm;
 
 $this->title = Yii::t('app', 'Signup');
 $this->params['breadcrumbs'][] = $this->title;
+FbAsset::register($this);
 ?>
 <div class="site-signup">
 

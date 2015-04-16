@@ -13,12 +13,12 @@ use yii\web\AssetBundle;
 use Yii;
 
 // set @themes alias so we do not have to update baseUrl every time we change themes
-// Yii::setAlias('@themes', Yii::$app->view->theme->baseUrl);
+ Yii::setAlias('@themes', Yii::$app->view->theme->baseUrl);
 
 class FbAsset extends AssetBundle
 {
     public $basePath = '@webroot';
-//     public $baseUrl = '@themes';
+     public $baseUrl = '@themes';
 
 //     public $css = [
 //         'css/site.css',

@@ -25,6 +25,7 @@ use app\models\FilterForm;
 use app\models\Form;
 use Yii;
 use app\models\Restaurant;
+use app\models\app\models;
 /**
  * Site controller.
  * It is responsible for displaying static pages, logging users in and out,
@@ -131,19 +132,21 @@ class SiteController extends Controller
      */
 	public function actionIndex()
     {
-        $model = new FilterForm();
-        $restaurants = RestaurantSearch::findAllData();
-        return $this->render('index', [
-                'model' => $model,
-                'country' => ArrayHelper::map($restaurants, 'country', 'country'),
-                'opening_time' => ArrayHelper::map($restaurants, 'opening_time', 'opening_time'),
-                'closing_time' => ArrayHelper::map($restaurants, 'closing_time', 'closing_time'),
-                'city' => ArrayHelper::map($restaurants, 'city', 'city'),
-                'guests' => ArrayHelper::map($restaurants, 'max_people', 'max_people'),
-                'cuisines' => ArrayHelper::map($restaurants, 'cuisine', 'cuisine'),
-        		'restaurant' => ArrayHelper::map($restaurants, 'name', 'name'),
-        		'restaurants' => $restaurants
-            ]);    
+    	$model = new FilterForm();
+    	$restaurants = RestaurantSearch::findAllData([]);
+    	if ($model->load(Yii::$app->request->post())){
+    		$selected_restaurants = RestaurantSearch::findFiltered($model);   					
+    	}
+    	else {
+    		$selected_restaurants = $restaurants;         
+    	}  
+    	return $this->render('index', [
+    			'restaurants' => $restaurants,
+    			'selected_restaurants' => $selected_restaurants,
+    			'model' => $model,
+    	]);
+
+        
     }
 
     /**
@@ -481,25 +484,6 @@ public function actionLogin()
 
     }
     
-	public function actionFilter()
-    {  
-    	$responce = $_GET['FilterForm'];    
-    	$country_selected = $responce['country'];   	
-        $restaurants = RestaurantSearch::findByParams($country_selected);
-        $all_restaurants = RestaurantSearch::findAllData();
-        $model = new FilterForm();
-        return $this->render('index',[
-                'model' => $model,
-                'country' => ArrayHelper::map($all_restaurants, 'country', 'country'),
-                'opening_time' => ArrayHelper::map($all_restaurants, 'opening_time', 'opening_time'),
-                'closing_time' => ArrayHelper::map($all_restaurants, 'closing_time', 'closing_time'),
-                'city' => ArrayHelper::map($all_restaurants, 'city', 'city'),
-                'guests' => ArrayHelper::map($all_restaurants, 'max_people', 'max_people'),
-                'cuisines' => ArrayHelper::map($all_restaurants, 'cuisine', 'cuisine'),
-        		'restaurant' => ArrayHelper::map($all_restaurants, 'name', 'name'),
-        		'restaurants' => $restaurants
-            ]);      
-    }
       
     
 }
