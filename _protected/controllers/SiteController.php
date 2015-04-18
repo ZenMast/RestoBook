@@ -19,6 +19,7 @@ use yii\helpers\ArrayHelper;
 use app\models\CuisineSearch;
 use app\models\RestaurantSearch;
 use app\models\TableSearch;
+use app\models\UserSearch;
 use app\models\TableSelection;
 use app\models\BookingSearch;
 use app\models\FilterForm;
@@ -454,36 +455,35 @@ public function actionLogin()
     }
      public function actionTable_selection()
     {
-        $model = new TableSelection();
-        $restaurant = $_GET['restaurant'];
-        $booking_time = ArrayHelper::map(BookingSearch::findAllbds(), 'booking_id','booking_time');
-        $date = ArrayHelper::map(BookingSearch::findAllbds(), 'booking_id','date');
+  
+        $model = new Form();
+        $model->load(Yii::$app->request->get());
+        $table = TableSearch::findAllTableId($model);
     	return $this->render('table_selection', [
     			'model' => $model,
-    			'booking_time' => $booking_time,
-                'date' => $date,
-    			'restaurant' => $restaurant
+                'table' => $table
+
     	]);
     }    
-
+    
     public function actionBooking_confirmation()
     {
-        return $this->render('booking_confirmation');
-    }
-    
-    
-    public function actionContact_details()
-    {
+
         $model = new Form();
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) 
-        {
-
-        }else{
-            return $this->render('contact_details', ['model' => $model]);
-        }    
-
+        $model->load(Yii::$app->request->post());      
+        return $this->render('booking_confirmation', [
+                'model' => $model
+        ]);
     }
-    
-      
+    public function actionContact_details()
+    {   
+
+        $model = new Form();
+        $model->load(Yii::$app->request->post());
+        return $this->render('contact_details', [
+                'model' => $model
+
+        ]);
+    } 
     
 }

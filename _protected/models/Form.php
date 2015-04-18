@@ -7,20 +7,25 @@ use Yii;
 
 class Form extends Model
 {
-	public $email;
+    public $email;
     public $phone;
     public $name;
     public $comment;
-	
+    public $date;
+    public $time;
+    public $people;
+    public $table;
+    public $restaurant_name;
+
 
     public function rules()
     {
         return [
                 
-            [['email','phone', 'name'], 'required'],
+            [['email','phone', 'name','date','time', 'people'], 'required'],
    
             ['email', 'email'],
-            ['comment', 'string', 'min' => 20, 'max' => 255]
+            ['comment', 'string','max' => 255]
 
             
             

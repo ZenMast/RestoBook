@@ -22,8 +22,7 @@ $this->title = Yii::t('app', Yii::$app->name);
     <div class="body-content">
         <div class="row">
             <div class="col-md-2">               
-                    <?php $form = ActiveForm::begin([
-                        ]); ?>            
+                    <?php $form = ActiveForm::begin(); ?>            
                     <?= $form->field($model, 'country')->dropDownList(["All Countries"=>"All Countries"] + ArrayHelper::map($restaurants, 'country', 'country'),  ['options' =>[$model->country => ['selected ' => true]]]) ?>
                     <?= $form->field($model, 'city')->dropDownList(["All Cities"=>"All Cities"] + ArrayHelper::map($restaurants, 'city', 'city'),  ['options' =>[$model->city => ['selected ' => true]]]) ?>         
                     <?= $form->field($model, 'restaurant')->dropDownList(["All Restaurants"=>"All Restaurants"] + ArrayHelper::map($restaurants, 'name', 'name'),  ['options' =>[$model->restaurant => ['selected ' => true]]]) ?>                  
@@ -40,7 +39,10 @@ $this->title = Yii::t('app', Yii::$app->name);
             <?php if ($i % 3 == 0){echo '<div class="row">';} ?>
             <div class="col-md-4">
                     <?php $img = Html::img('http://www.92y.org/92streety/media/classes_events/food_drink/lg/food_whiskey_lg.jpg', ['width' => '250'])?>
-                    <div class="row"><?= Html::a($img, ['site/table_selection', 'restaurant'=>$selected_restaurants[$i]->name]) ?></div>
+                    <div class="row"><?= Html::a($img, ['site/table_selection', 'restaurant_name'=>$selected_restaurants[$i]->name],[
+                    'data' =>  [
+                     'method' => 'post'
+                    ],]) ?></div>
                     <div class="row"><?= Html::Label('Restaurant: '.$selected_restaurants[$i]->name ) ?></div>
                     <div class="row"><?= Html::label('Location: '.$selected_restaurants[$i]->country.", ".$selected_restaurants[$i]->city.", ".$selected_restaurants[$i]->address)?></div>   
                     <div class="row"><?= Html::label('Opened: '.$selected_restaurants[$i]->opening_time.'-'.$selected_restaurants[$i]->closing_time)?></div> 

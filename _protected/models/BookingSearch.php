@@ -25,7 +25,7 @@ class BookingSearch extends Booking
     }
     static public function findAllbds() {
         return Booking::find()
-        ->select(['booking_id','booking_time','date'])
+        ->select(['booking_id','booking_time'])
         -> all();
     }
     /**
