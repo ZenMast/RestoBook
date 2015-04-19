@@ -23,7 +23,7 @@ $this->title = Yii::t('app', 'contact_details');
                     <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-primary']) ?>
                     <?= $form->field($model, 'date')->hiddenInput(['readonly' => true])->label(false) ?>
                     <?= $form->field($model, 'time')->hiddenInput(['readonly' => true])->label(false) ?>      
-                    <?= $form->field($model, 'table')->hiddenInput(['readonly' => true])->label(false) ?>
+                    <?= $form->field($model, 'tables')->hiddenInput(['readonly' => true])->label(false) ?>
                     <?= $form->field($model, 'people')->hiddenInput(['readonly' => true]) ->label(false) ?>
                     <?php ActiveForm::end(); ?>
 

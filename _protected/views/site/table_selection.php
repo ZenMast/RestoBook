@@ -5,6 +5,8 @@ use yii\bootstrap\ActiveForm;
 use yii\jui\DatePicker;
 use janisto\timepicker\TimePicker;
 use yii\helpers\Url;
+use yii\helpers\ArrayHelper;
+
 $this->title = Yii::t('app', 'table_selection');
 
 ?>
@@ -24,13 +26,17 @@ $this->title = Yii::t('app', 'table_selection');
                         ]); ?>
                     <?= $form->field($model, 'date')-> widget(TimePicker::className(), [ 'name'  => 'book_date','mode' => 'date']) ?>    
                     <?= $form->field($model, 'time')-> widget(TimePicker::className(), [ 'name'  => 'time','mode' => 'time']) ?>
-                    <?= $form->field($model, 'table')->dropDownList($table, ['prompt'=>'--Table--']) ?>
-                    <?= $form->field($model, 'people') ?>
-                    <?= $form->field($model, 'restaurant_name')->textInput(['readonly' => true])->label('Restaurant')?> 
-                    <br> 
+                    <?php $tables_array = null;                   
+                    for ($i = 0; $i < max(array_map('count', $tables)); ++$i){
+                    	$tables_array[$tables[$i]->table_id] = "Table " . ($i + 1) . " max: " . $tables[$i]->max_people;                   	                    	
+                    }?>
+                    <?= $form->field($model, 'tables')->dropDownList($tables_array) ?>
+                    <?= $form->field($model, 'people')->textInput(['value' => $model->people])?>
                     <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-primary']) ?>
-                    <?php ActiveForm::end(); ?>
-            	</div>          
+                    <?php ActiveForm::end(); ?>                    
+            	</div> 
+            	<?= Html::Label('Restaurant: '.$restaurant_data[0]->name ) ?>     
+            	<?= Html::Label('Description, Googlemap etc'  ) ?>     
             </div>
             <div class="col-lg-3">  
                 <br>

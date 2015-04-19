@@ -23,7 +23,7 @@ use app\models\UserSearch;
 use app\models\TableSelection;
 use app\models\BookingSearch;
 use app\models\FilterForm;
-use app\models\Form;
+use app\models\Reservation;
 use Yii;
 use app\models\Restaurant;
 use app\models\app\models;
@@ -134,12 +134,12 @@ class SiteController extends Controller
 	public function actionIndex()
     {
     	$model = new FilterForm();
-    	$restaurants = RestaurantSearch::findAllData([]);
+    	$restaurants = RestaurantSearch::findAllData([]);    	
     	if ($model->load(Yii::$app->request->post())){
-    		$selected_restaurants = RestaurantSearch::findFiltered($model);   					
+    		$selected_restaurants = RestaurantSearch::findFiltered($model); 
     	}
     	else {
-    		$selected_restaurants = $restaurants;         
+    		$selected_restaurants = $restaurants;  		
     	}  
     	return $this->render('index', [
     			'restaurants' => $restaurants,
@@ -453,17 +453,20 @@ public function actionLogin()
 
         return $this->redirect('login');
     }
-     public function actionTable_selection()
+    
+    public function actionTable_selection()
     {
   
-        $model = new Form();
-        $model->load(Yii::$app->request->get());
-        $table = TableSearch::findAllTableId($model);
-    	return $this->render('table_selection', [
-    			'model' => $model,
-                'table' => $table
-
-    	]);
+        $model = new Reservation();  
+        if ($model->load(Yii::$app->request->get()))
+        {
+	       	$tables = TableSearch::findAllTablesByRestId($model->restaurant_id);
+	        $restaurant_data = RestaurantSearch::findAll(['restaurant_id'=>$model->restaurant_id]);
+	    	return $this->render('table_selection', [
+	    			'model' => $model,
+	                'tables' => $tables,
+	    			'restaurant_data'=>$restaurant_data,   			
+	    	]);}
     }    
     
     public function actionBooking_confirmation()

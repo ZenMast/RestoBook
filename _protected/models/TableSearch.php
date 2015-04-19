@@ -41,13 +41,9 @@ class TableSearch extends Table
     	-> all();
     }
 
-    static public function findAllTableId($params) {
+    static public function findAllTablesByRestId($restId) {
         return Table::findBySql(
-            'select tables.table_id,tables.max_people 
-            FROM tables 
-            join restaurants 
-            on restaurants.restaurant_id=tables.restaurant_id 
-            where restaurants.name="'. $params-> restaurant_name .'"')
+            'select table_id, max_people FROM tables where restaurant_id='. $restId)
         -> all();
     }
 
