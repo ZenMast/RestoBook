@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use kartik\date\DatePicker;
+use kartik\time\TimePicker;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Booking */
@@ -18,13 +20,20 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'user_id')->dropDownList($users) ?>
 
-    <?= $form->field($model, 'date')->textInput() ?>
+    <?= $form->field($model, 'date')->widget(DatePicker::classname(), [
+	    'options' => ['placeholder' => 'yyyy-mm-dd'],
+	    'pluginOptions' => [
+	        'autoclose'=>true,
+    		'format' => 'yyyy-mm-dd'
+	    ]
+    ]) ?>
 
-    <?= $form->field($model, 'time')->textInput() ?>
+    <?= $form->field($model, 'time')->widget(TimePicker::classname(), ['pluginOptions' => [
+        'showMeridian' => false,
+        'minuteStep' => 5,
+    ]]) ?>
 
     <?= $form->field($model, 'comment')->textInput(['maxlength' => 3000]) ?>
-
-    <?= $form->field($model, 'booking_time')->textInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

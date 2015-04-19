@@ -47,7 +47,8 @@ class Restaurant extends \yii\db\ActiveRecord
             [['cuisine', 'vegetarian', 'wifi', 'max_people'], 'integer'],
             [['name', 'country', 'city', 'address', 'email'], 'string', 'max' => 200],
             [['website', 'phone'], 'string', 'max' => 300],
-            [['description'], 'string', 'max' => 20000]
+            [['description'], 'string', 'max' => 20000],
+        	['email', 'email'],
         ];
     }
 
