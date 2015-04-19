@@ -472,7 +472,7 @@ public function actionLogin()
     public function actionBooking_confirmation()
     {
 
-        $model = new Form();
+        $model = new Reservation();
         $model->load(Yii::$app->request->post());      
         return $this->render('booking_confirmation', [
                 'model' => $model
@@ -481,7 +481,7 @@ public function actionLogin()
     public function actionContact_details()
     {   
 
-        $model = new Form();
+        $model = new Reservation();
         $model->load(Yii::$app->request->post());
         return $this->render('contact_details', [
                 'model' => $model
