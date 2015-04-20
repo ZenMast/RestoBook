@@ -15,30 +15,20 @@ use Yii;
 class UserController extends AppController
 {
 	
-	public function behaviors()
-	{
-		return [
-			[
-			'class' => 'yii\filters\HttpCache',
-				'only' => ['index'],
-				'lastModified' => function ($action, $params) {
-					$q = new \yii\db\Query();
-					return $q->from('user')->max('updated_at');
-				},
-			],
-			'access' => [
-					'class' => AccessControl::className(),
-					'rules' => [
-							[
-									'actions' => ['index', 'view', 'create', 'update', 'delete'],
-									'allow' => true,
-									'roles' => ['admin'],
-							],
-					], // rules
-			], // access
-		]; // return
+// 	public function behaviors()
+// 	{
+// 		return [
+// 			[
+// 			'class' => 'yii\filters\HttpCache',
+// 				'only' => ['index'],
+// 				'lastModified' => function ($action, $params) {
+// 					$q = new \yii\db\Query();
+// 					return $q->from('user')->max('updated_at');
+// 				},
+// 			],
+// 		]; // return
 	
-	} // behaviors
+// 	} // behaviors
 	
     /**
      * Lists all User models.
