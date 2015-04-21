@@ -26,21 +26,10 @@ class AppController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'controllers' => ['user', 'article', 'restaurant', 'cuisine', 'table', 'booking'],
+                        'controllers' => ['user', 'restaurant', 'cuisine', 'table', 'booking'],
                         'actions' => ['index', 'view', 'create', 'update', 'delete', 'admin'],
                         'allow' => true,
                         'roles' => ['admin'],
-                    ],
-                    [
-                        'controllers' => ['article'],
-                        'actions' => ['create', 'update', 'admin'],
-                        'allow' => true,
-                        'roles' => ['editor'],
-                    ],
-                    [
-                        'controllers' => ['article'],
-                        'actions' => ['index', 'view'],
-                        'allow' => true
                     ],
                     [
                         'controllers' => ['booking'],
