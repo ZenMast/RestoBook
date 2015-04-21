@@ -11,7 +11,6 @@ use Yii;
  */
 class SignupForm extends Model
 {
-    public $username;
     public $email;
     public $password;
     public $password2;
@@ -28,12 +27,6 @@ class SignupForm extends Model
     public function rules()
     {
         return [
-            ['username', 'filter', 'filter' => 'trim'],
-            ['username', 'required'],
-            ['username', 'string', 'min' => 2, 'max' => 255],
-            ['username', 'unique', 'targetClass' => '\app\models\User', 
-                'message' => 'This username has already been taken.'],
-
             ['email', 'filter', 'filter' => 'trim'],
             ['email', 'required'],
             ['email', 'email'],
@@ -97,7 +90,6 @@ class SignupForm extends Model
     public function attributeLabels()
     {
         return [
-            'username' => Yii::t('app', 'Username'),
             'password' => Yii::t('app', 'Password'),
         	'password2' => Yii::t('app', 'Repeat password'),
             'email' => Yii::t('app', 'Email'),
@@ -116,7 +108,6 @@ class SignupForm extends Model
     {
         $user = new User();
 
-        $user->username = $this->username;
         $user->email = $this->email;
         $user->setPassword($this->password);
         $user->generateAuthKey();

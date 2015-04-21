@@ -208,10 +208,8 @@ public function actionLogin()
         {
             return $this->goHome();
         }
-        // get setting value for 'Login With Email'
-        $lwe = Yii::$app->params['lwe'];
-        // if 'lwe' value is 'true' we instantiate LoginForm in 'lwe' scenario
-        $model = $lwe ? new LoginForm(['scenario' => 'lwe']) : new LoginForm();
+
+        $model = new LoginForm();
         // now we can try to log in the user
         if ($model->load(Yii::$app->request->post()) && $model->login()) 
         {
@@ -372,7 +370,7 @@ public function actionLogin()
 
                 // log this error, so we can debug possible problem easier.
                 Yii::error('Signup failed! 
-                    User '.Html::encode($user->username).' could not sign up.
+                    User '.Html::encode($user->email).' could not sign up.
                     Possible causes: something strange happened while saving user in database.');
 
                 return $this->refresh();
@@ -398,7 +396,7 @@ public function actionLogin()
         if ($model->sendAccountActivationEmail($user)) 
         {
             Yii::$app->session->setFlash('success', 
-                Yii::t('app', 'Hello').' '.Html::encode($user->username). '. ' .
+                Yii::t('app', 'Hello').' '.Html::encode($user->email). '. ' .
                 Yii::t('app', 'To be able to log in, you need to confirm your registration. Please check your email, we have sent you a message.'));
         }
         // email could not be sent
@@ -410,7 +408,7 @@ public function actionLogin()
 
             // log this error, so we can debug possible problem easier.
             Yii::error('Signup failed! 
-                User '.Html::encode($user->username).' could not sign up.
+                User '.Html::encode($user->email).' could not sign up.
                 Possible causes: verification email could not be sent.');
         }
     }
@@ -442,13 +440,13 @@ public function actionLogin()
         {
             Yii::$app->getSession()->setFlash('success', 
                 Yii::t('app', 'Success! You can now log in.').' '.
-                Yii::t('app', 'Thank you').' '.Html::encode($user->username).' '.
+                Yii::t('app', 'Thank you').' '.Html::encode($user->email).' '.
                 Yii::t('app', 'for joining us!'));
         }
         else
         {
             Yii::$app->getSession()->setFlash('error', 
-                Html::encode($user->username).
+                Html::encode($user->email).
                 Yii::t('app', 'your account could not be activated, please contact us!'));
         }
 
@@ -504,7 +502,7 @@ public function actionLogin()
         if (!Yii::$app->user->isGuest)
         {
             if ($user = Yii::$app->user->identity) {
-            $model->name = $user->username;
+            $model->name = $user->name;
             $model->email = $user->email;
             $model->phone = $user->phone;
             }

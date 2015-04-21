@@ -76,7 +76,7 @@ AppAsset::register($this);
             else 
             {
                 $menuItems[] = [
-                    'label' => Yii::t('app', 'Logout'). ' (' . Yii::$app->user->identity->username . ')',
+                    'label' => Yii::t('app', 'Logout'). ' (' . Yii::$app->user->identity->email . ')',
                     'url' => ['/site/logout'],
                     'linkOptions' => ['data-method' => 'post']
                 ];

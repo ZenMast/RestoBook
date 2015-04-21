@@ -8,7 +8,7 @@ $resetLink = Yii::$app->urlManager->createAbsoluteUrl(['site/activate-account',
     'token' => $user->account_activation_token]);
 ?>
 
-Hello <?= Html::encode($user->username) ?>,
+Hello <?= Html::encode($user->email) ?>,
 
 Follow this link to activate your account:
 

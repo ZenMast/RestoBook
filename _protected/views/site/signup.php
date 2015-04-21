@@ -22,7 +22,6 @@ FbAsset::register($this);
         <p><?= Yii::t('app', 'Please fill out the following fields to signup:') ?></p>	 
 	   <div class="fb-login-button" data-max-rows="1" data-size="medium" data-show-faces="true" data-auto-logout-link="false"  data-scope="email,public_profile"></div>
         <?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>			
-		    <?= $form->field($model, 'username') ?>
             <?= $form->field($model, 'email') ?>
             <?= $form->field($model, 'password')->widget(PasswordInput::classname(), []) ?>
             <?= $form->field($model, 'password2')->passwordInput() ?>            

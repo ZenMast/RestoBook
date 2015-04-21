@@ -26,8 +26,6 @@ use yii\widgets\ActiveForm;
 <div class="user-form">
 
     <?php $form = ActiveForm::begin(['id' => 'form-user']); ?>
-
-        <?= $form->field($user, 'username') ?>
         
         <?= $form->field($user, 'email') ?>
         

@@ -36,19 +36,17 @@ class User extends UserIdentity
         return [
         		
         	['email', 'filter', 'filter' => 'trim'],
-            [['email', 'status', 'phone', 'name'], 'required'],
+            [['email', 'status', 'phone'], 'required'],
    
             ['email', 'email'],
-            ['username', 'string', 'min' => 2, 'max' => 255],
         		
-        	['restaurant_id', 'safe'],
+        	[['restaurant_id', 'name'], 'safe'],
 
             // password field is required on 'create' scenario
             ['password', 'required', 'on' => 'create'],
             // use passwordStrengthRule() method to determine password strength
             $this->passwordStrengthRule(),
                       
-            ['username', 'unique', 'message' => 'This username has already been taken.'],
             ['email', 'unique', 'message' => 'This email address has already been taken.'],
         		
         ];
@@ -96,7 +94,6 @@ class User extends UserIdentity
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'username' => Yii::t('app', 'Username'),
         	'name' => Yii::t('app', 'Name'),
             'password' => Yii::t('app', 'Password'),
             'email' => Yii::t('app', 'Email'),
@@ -124,17 +121,6 @@ class User extends UserIdentity
 //------------------------------------------------------------------------------------------------//
 // USER FINDERS
 //------------------------------------------------------------------------------------------------//
-
-    /**
-     * Finds user by username.
-     *
-     * @param  string $username
-     * @return static|null
-     */
-    public static function findByUsername($username)
-    {
-        return static::findOne(['username' => $username]);
-    }  
     
     /**
      * Finds user by email.
