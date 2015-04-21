@@ -53,6 +53,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     return ['class'=>CssHelper::roleCss($model->roleName)];
                 }
             ],
+            'restaurant_id',
             // buttons
             ['class' => 'yii\grid\ActionColumn',
             'header' => "Menu",

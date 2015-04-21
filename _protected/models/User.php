@@ -40,6 +40,8 @@ class User extends UserIdentity
    
             ['email', 'email'],
             ['username', 'string', 'min' => 2, 'max' => 255],
+        		
+        	['restaurant_id', 'safe'],
 
             // password field is required on 'create' scenario
             ['password', 'required', 'on' => 'create'],
@@ -104,6 +106,7 @@ class User extends UserIdentity
             'item_name' => Yii::t('app', 'Role'),
         	'fbid' => Yii::t('app', 'Fbid'),
         	'phone' => Yii::t('app', 'Phone'),
+        	'restaurant_id' => Yii::t('app', 'Restaurant ID')
         ];
     }
 
@@ -143,6 +146,15 @@ class User extends UserIdentity
     {
         return static::findOne(['email' => $email]);
     } 
+    
+    /**
+     * Find user by restaurant_id
+     * @param int $restaurant_id
+     * @return static|null
+     */
+    public static function findByRestaurantId($restaurant_id) {
+    	return static::findOne(['restaurant_id' => $restaurant_id]);
+    }
 
     /**
      * Finds user by password reset token.

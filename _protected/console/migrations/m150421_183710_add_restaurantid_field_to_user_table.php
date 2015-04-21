@@ -3,18 +3,18 @@
 use yii\db\Schema;
 use yii\db\Migration;
 
-class m150420_002523_truncate_users extends Migration
+class m150421_183710_add_restaurantid_field_to_user_table extends Migration
 {
     public function up()
     {
     	$this->db->createCommand('
-    			DELETE FROM user;
-    			')->execute();
+    			ALTER TABLE user ADD restaurant_id INT DEFAULT NULL; 
+    			')->execute();    	 
     }
 
     public function down()
     {
-        echo "m150420_002523_truncate_users cannot be reverted.\n";
+        echo "m150421_183710_add_restaurantid_field_to_user_table cannot be reverted.\n";
 
 //         return false;
     }

@@ -8,11 +8,12 @@ use Yii;
 /**
  * Creates base rbac authorization data for our application.
  * -----------------------------------------------------------------------------
- * Creates 3 roles:
+ * 4 roles:
  *
  * - theCreator : you, developer of this site (super admin)
  * - admin      : your direct clients, administrators of this site
  * - member     : user of this site who has registered his account and can log in
+ * - restaurantRepresentative : Represents restaurant in restobook system, can manage 1 restaurant
  *
  * Creates 1 permission:
 
@@ -42,13 +43,19 @@ class RbacController extends Controller
         $member = $auth->createRole('member');
         $member->description = 'Registered users, members of this site';
         $auth->add($member);
+        
+        // add "restaurantRepresentative" role
+        $restaurantRepresentative = $auth->createRole('restaurantRepresentative');
+        $restaurantRepresentative->description = 'Represents restaurant in restobook system, can manage 1 restaurant';
+        $auth->add($restaurantRepresentative);
+        $auth->addChild($restaurantRepresentative, $member);
 
         // add "admin" role and give this role: 
         // manageUsers, permissions, plus he can do everything that $restaurantRepresentative role can do.
         $admin = $auth->createRole('admin');
         $admin->description = 'Administrator of this application';
         $auth->add($admin);
-        $auth->addChild($admin, $member);
+        $auth->addChild($admin, $restaurantRepresentative);
         $auth->addChild($admin, $manageUsers);
 
         // add "theCreator" role ( this is you :) )

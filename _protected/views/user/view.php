@@ -48,6 +48,7 @@ $this->params['breadcrumbs'][] = $this->title;
             //'account_activation_token',
             'created_at:date',
             'updated_at:date',
+            'restaurant_id'
         ],
     ]) ?>
 

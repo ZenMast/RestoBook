@@ -22,6 +22,7 @@ use Yii;
  * @property integer $status
  * @property integer $created_at
  * @property integer $updated_at
+ * @property integer $restaurant_id
  */
 class UserIdentity extends ActiveRecord implements IdentityInterface
 {
