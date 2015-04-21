@@ -36,7 +36,7 @@ class UserSearch extends User
     
     static public function findAllIds() {
     	return User::find()
-    	->select(['id'])
+    	->select(['id','email'])
     	-> all();
     }
 

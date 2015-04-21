@@ -24,6 +24,7 @@ use app\models\TableSelection;
 use app\models\BookingSearch;
 use app\models\FilterForm;
 use app\models\Reservation;
+use app\models\Booking;
 use Yii;
 use app\models\Restaurant;
 use app\models\app\models;
@@ -457,7 +458,7 @@ public function actionLogin()
     public function actionTable_selection()
     {
   
-        $model = new Reservation();  
+        $model = new Reservation();
         if ($model->load(Yii::$app->request->get()))
         {
 	       	$tables = TableSearch::findAllTablesByRestId($model->restaurant_id);
@@ -469,7 +470,7 @@ public function actionLogin()
 	    	]);}
     }    
     
-    public function actionBooking_confirmation()
+     public function actionBooking_confirmation()
     {
 
         $model = new Reservation();
@@ -478,15 +479,50 @@ public function actionLogin()
                 'model' => $model
         ]);
     }
+       public function actionCreate_booking()
+    {
+
+        $model = new Booking();
+        $request = Yii::$app->request;
+        //$model->table_id = $request->post('Reservation[tables]'); 
+        $model->user_id = Yii::$app->user->id;
+        $model->table_id  = $_POST['Reservation']['tables'];
+        $model->people  = $_POST['Reservation']['people'];
+        $model->date  = $_POST['Reservation']['date'];
+        $model->time  = $_POST['Reservation']['time'];
+        $model->save();
+        //print_r( $model);
+        return $this->render('booking_finish', [
+                    'model' => $model                   
+         ]); 
+        
+    }
     public function actionContact_details()
-    {   
-
-        $model = new Reservation();
+    {          
+        $model = new Reservation(); 
         $model->load(Yii::$app->request->post());
-        return $this->render('contact_details', [
-                'model' => $model
+        if (!Yii::$app->user->isGuest)
+        {
+            if ($user = Yii::$app->user->identity) {
+            $model->name = $user->username;
+            $model->email = $user->email;
+            $model->phone = $user->phone;
+            }
+            
+            //print("Your table".Yii::$app->request->bodyParams);
+            //print("Your id is ".Yii::$app->user->id);
+            //print("Your name ".Yii::$app->user->identity->name);
+            //print("Your email ".Yii::$app->user->identity->email);
 
+             return $this->render('contact_details', [
+                'model' => $model
+        ]); 
+        }
+        else{
+            return $this->render('contact_details', [
+                'model' => $model
         ]);
+        }
     } 
     
 }

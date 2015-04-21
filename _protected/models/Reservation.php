@@ -24,7 +24,7 @@ class Reservation extends Model
     	
     	return [
                 
-            [['email','phone', 'name','date','time', 'people'], 'required'],
+            [['email','phone', 'name','date','time', 'people','tables'], 'required'],
    			
             ['email', 'email'],
             ['comment', 'string','max' => 255],                     
