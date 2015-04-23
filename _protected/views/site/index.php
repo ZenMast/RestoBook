@@ -13,9 +13,10 @@ use app\models\CuisineSearch;
 use yii\helpers\ArrayHelper;
 use yii\grid\GridView;
 use yii\helpers\Url;
+use app\assets\FilterAsset;
 
 $this->title = Yii::t('app', Yii::$app->name);
-
+FilterAsset::register($this);
 ?>
 <!--index-->
 <div class="site-index">
@@ -23,8 +24,8 @@ $this->title = Yii::t('app', Yii::$app->name);
         <div class="row">
             <div class="col-md-2">               
                     <?php $form = ActiveForm::begin(); ?>            
-                    <?= $form->field($model, 'country')->dropDownList(["All Countries"=>"All Countries"] + ArrayHelper::map($restaurants, 'country', 'country'),  ['options' =>[$model->country => ['selected ' => true]]]) ?>
-                    <?= $form->field($model, 'city')->dropDownList(["All Cities"=>"All Cities"] + ArrayHelper::map($restaurants, 'city', 'city'),  ['options' =>[$model->city => ['selected ' => true]]]) ?>         
+                    <?= $form->field($model, 'country')->dropDownList(["All Countries"=>"All Countries"] + ArrayHelper::map($restaurants, 'country', 'country'),  ['options' =>[$model->country => ['selected ' => true]], 'onchange'=>'selectedCountry()']) ?>
+                    <?= $form->field($model, 'city')->dropDownList(["All Cities"=>"All Cities"] + ArrayHelper::map($restaurants, 'city', 'city'),  ['options' =>[$model->city => ['selected ' => true]], 'onchange'=>'selectedCountry()']) ?>         
                     <?= $form->field($model, 'restaurant')->dropDownList(["All Restaurants"=>"All Restaurants"] + ArrayHelper::map($restaurants, 'name', 'name'),  ['options' =>[$model->restaurant => ['selected ' => true]]]) ?>                  
                     <?= $form->field($model, 'cuisine')->dropDownList(["All Cuisines"=>"All Cuisines"] + array_filter(ArrayHelper::map($restaurants, 'cuisine', 'cuisine')),  ['options' =>[$model->cuisine => ['selected ' => true]]]) ?>                  
                     <?= $form->field($model, 'date')-> widget(TimePicker::className(), [ 'name'  => 'book_date','mode' => 'date',  'options'=> ['dateFormat'=>'dd-mm-yy']]) ?>       

@@ -453,21 +453,27 @@ public function actionLogin()
         return $this->redirect('login');
     }
     
-    public function actionTable_selection()
+	public function actionTable_selection()
     {
-  
-        $model = new Reservation();
-        if ($model->load(Yii::$app->request->get()))
-        {
-	       	$tables = TableSearch::findAllTablesByRestId($model->restaurant_id);
-	        $restaurant_data = RestaurantSearch::findAll(['restaurant_id'=>$model->restaurant_id]);
-	    	return $this->render('table_selection', [
-	    			'model' => $model,
-	                'tables' => $tables,
-	    			'restaurant_data'=>$restaurant_data,   			
-	    	]);}
-    }    
     
+    	$model = new Reservation();
+    	if ($model->load(Yii::$app->request->get()))
+    	{
+    		$tables = TableSearch::findAllTablesByRestId($model->restaurant_id);
+    		if ($tables){
+    			$restaurant_data = RestaurantSearch::findAll(['restaurant_id'=>$model->restaurant_id]);
+    			return $this->render('table_selection', [
+    					'model' => $model,
+    					'tables' => $tables,
+    					'restaurant_data'=>$restaurant_data,
+    			]);}
+    			else{
+    				Yii::$app->getSession()->setFlash('warning', Yii::t('app', 'Sorry, there is no tables avaivable in selected restaurant!'));
+    				return $this->goHome();
+    			}
+    	}
+    }
+      
      public function actionBooking_confirmation()
     {
 
@@ -522,5 +528,31 @@ public function actionLogin()
         ]);
         }
     } 
+    
+    public function actionFilterselected()
+    {
+    	$request = Yii::$app->request;    	
+    	if($param = $request->get('country')){
+    		$result = RestaurantSearch::findByCountry($param);
+    	}    	
+    	if($result){
+    		foreach($result as $val){
+    			if($request->get('country')){
+    				echo "<option value='city-".$val->city."'>".$val->city."</option>";
+    			}
+    			else{
+	    			echo "<option value='cuisine-".$val->cuisine."'>".$val->cuisine."</option>";
+	    			echo "<option value='name-".$val->name."'>".$val->name."</option>";
+    			}
+    		}
+    	}
+    	else{
+    		echo "<option>-</option>";
+    	}
+    	
+    	
+       //echo "<option value='test'>test</option>";
+   
+    }
     
 }
