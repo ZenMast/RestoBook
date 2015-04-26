@@ -28,6 +28,8 @@ FilterAsset::register($this);
                     <?= $form->field($model, 'city')->dropDownList(["All Cities"=>"All Cities"] + ArrayHelper::map($restaurants, 'city', 'city'),  ['options' =>[$model->city => ['selected ' => true]], 'onchange'=>'selectedCountry()']) ?>         
                     <?= $form->field($model, 'restaurant')->dropDownList(["All Restaurants"=>"All Restaurants"] + ArrayHelper::map($restaurants, 'name', 'name'),  ['options' =>[$model->restaurant => ['selected ' => true]]]) ?>                  
                     <?= $form->field($model, 'cuisine')->dropDownList(["All Cuisines"=>"All Cuisines"] + array_filter(ArrayHelper::map($restaurants, 'cuisine', 'cuisine')),  ['options' =>[$model->cuisine => ['selected ' => true]]]) ?>                              	              
+               		<?= $form->field($model, 'vegetarian')->checkbox() ?>
+    				<?= $form->field($model, 'wifi')->checkbox() ?>
                		<?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>
                     <?php ActiveForm::end(); ?>                          
 			</div> 
@@ -40,6 +42,11 @@ FilterAsset::register($this);
                     <?php $img = Html::img('http://www.92y.org/92streety/media/classes_events/food_drink/lg/food_whiskey_lg.jpg', ['width' => '300'])?>
                     <div class="row"><?= Html::a($img, ['site/table_selection', 'Reservation[restaurant_id]'=>$selected_restaurants[$i]->restaurant_id]) ?></div>
                     <div class="row"><?= Html::Label($selected_restaurants[$i]->description)?></div>
+            		<div class="row"><?= Html::label('Location: '.$selected_restaurants[$i]->country.", ".$selected_restaurants[$i]->city.", ".$selected_restaurants[$i]->address)?></div>   
+                    <div class="row"><?= Html::label('Opened: '.$selected_restaurants[$i]->opening_time.'-'.$selected_restaurants[$i]->closing_time)?></div> 
+                    <?php if(!empty($selected_restaurants[$i]->cuisine)){echo '<div class="row">'.Html::label('Kitchen: '.$selected_restaurants[$i]->cuisine).'</div>';} ?>
+                    <?php if(!empty($selected_restaurants[$i]->max_people)){echo '<div class="row">'.Html::label('Max: '.$selected_restaurants[$i]->max_people).'</div>';} ?>                                                   
+                    
             </div>
             <?php if (($i + 1) % 3 == 0 ||$i == sizeof($selected_restaurants)){echo '</div>';} ?>           	
             <?php } ?>	

@@ -25,7 +25,7 @@ $this->title = Yii::t('app', 'table_selection');
                          ]]) ?>    
                     <?= $form->field($model, 'time')-> widget(TimePicker::className(), ['mode' => 'time']) ?>
                     <?php $tables_array = null;                   
-                    for ($i = 0; $i <= max(array_map('count', $tables)); ++$i){
+                    for ($i = 0; $i < sizeof($tables); ++$i){
                     	$tables_array[$tables[$i]->table_id] = "Table " . ($i + 1) . " max: " . $tables[$i]->max_people;                   	                    	
                     }?>
                     <?= $form->field($model, 'tables')->dropDownList($tables_array) ?>
