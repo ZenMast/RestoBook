@@ -9,8 +9,6 @@ $this->title = Yii::t('app', 'booking_finish');
 <div class="finish">
     <div class="body_finish">
     	<div class="row_finish">
-    		<div class="col-lg-4">               
-            </div>
     		<div class="col-lg-4">
     			<div class="Information">   	
                     <?php $form = ActiveForm::begin([
@@ -29,8 +27,6 @@ $this->title = Yii::t('app', 'booking_finish');
                    
                 </div>
     		</div>
-    		<div class="col-lg-4">
-    		</div>
     	</div>
-
     </div>
+</div>
