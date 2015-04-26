@@ -135,9 +135,9 @@ class SiteController extends Controller
 	public function actionIndex()
     {
     	$model = new FilterForm();
-    	$restaurants = RestaurantSearch::findAllData([]);    	
+    	$restaurants = RestaurantSearch::findFiltered(null);	
     	if ($model->load(Yii::$app->request->post())){
-    		$selected_restaurants = RestaurantSearch::findFiltered($model); 
+    		$selected_restaurants = RestaurantSearch::findFiltered($model);
     	}
     	else {
     		$selected_restaurants = $restaurants;  		
@@ -531,30 +531,36 @@ public function actionLogin()
         }
     } 
     
-    public function actionFilterselected()
-    {
-    	$request = Yii::$app->request;    	
+	public function actionFilterselected()
+	{
+    	$request = Yii::$app->request;
+    	$result = null;    	
     	if($param = $request->get('country')){
-    		$result = RestaurantSearch::findByCountry($param);
-    	}    	
-    	if($result){
-    		foreach($result as $val){
-    			if($request->get('country')){
-    				echo "<option value='city-".$val->city."'>".$val->city."</option>";
-    			}
-    			else{
-	    			echo "<option value='cuisine-".$val->cuisine."'>".$val->cuisine."</option>";
-	    			echo "<option value='name-".$val->name."'>".$val->name."</option>";
-    			}
-    		}
-    	}
-    	else{
-    		echo "<option>-</option>";
-    	}
+    		$result = RestaurantSearch::findForDropdownByCountry($param);
+    		echo "<option value=All Cities>All Cities</option>";
+    		echo "<option value=All Restaurants>All Restaurants</option>";
+    	} 
+    	else if($param = $request->get('city')){
+    		echo "<option value=All Restaurants>All Restaurants</option>";
+    		$result = RestaurantSearch::findForDropdownByCity(['type'=>'city', 'value'=>$param]);
+    		echo "<option value=All Restaurants>All Restaurants</option>";
+    	}   
     	
-    	
-       //echo "<option value='test'>test</option>";
+    	if($result)
+    	{    	foreach($result as $val){			
+    			if($request->get('getname'))
+    					echo "<option value=".$val->name.">".$val->name."</option>";
+    			else if($request->get('getcity')) 	
+	    				echo "<option value=".$val->city.">".$val->city."</option>";
+    			}    			
+    	}
+    	    	
    
+    }
+	
+	 public function beforeAction($action) {
+	    	$this->enableCsrfValidation = false;
+	    	return parent::beforeAction($action);
     }
     
 }

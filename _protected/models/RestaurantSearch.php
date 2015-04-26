@@ -47,11 +47,6 @@ class RestaurantSearch extends Restaurant
         -> all();
     }
     
-    static public function findAllData() {
-    	return RestaurantSearch::findBySql(
-    	 	'select r.restaurant_id, r.description, r.name, r.city, r.country, r.max_people, r.opening_time, r.closing_time, r.address, c.cuisine from restaurants r left join cuisines c on r.cuisine=c.cuisine_id')
-    	-> all();
-    }
     
    
     static public function findAllIdsToAssocString() {
@@ -119,36 +114,54 @@ class RestaurantSearch extends Restaurant
     
     public static function findFiltered($params){
     	$where = null;
-    	$finalwhere = null;
-    	if (strpos($params->cuisine, 'All') ===  false)
-    		 $where  .=  " c.cuisine='".$params->cuisine."'";
-    	
-    	if (strpos($params->country, 'All') ===  false){
-    		if ($where)
-    			$where  .= " and";
-    		$where  .=  " r.country='".$params->country."'";   		
+    	$finalwhere = null;    	
+    	if ($params){
+	    	if (strpos($params->cuisine, 'All') ===  false)
+	    		 $where  .=  " c.cuisine='".$params->cuisine."'";
+	    	
+	    	if (strpos($params->country, 'All') ===  false){
+	    		if ($where)
+	    			$where  .= " and";
+	    		$where  .=  " r.country='".$params->country."'";   		
+	    	}
+	    	if (strpos($params->city, 'All') === false){
+	    		if ($where)
+	    			$where  .= " and";
+	    		$where  .=  " r.city='".$params->city."'";
+	    	}
+	    	if (strpos($params->restaurant, 'All') ===  false){
+	    		if ($where)
+	    			$where  .= " and";
+	    		$where  .=  " r.name='".$params->restaurant."'";
+	    	}
+	    	if ($params->wifi = 1){
+	    		if ($where)
+	    			$where  .= " and";
+	    		$where  .=  " r.wifi>=1";
+	    	}
+	    	if ($params->vegetarian = 1){
+	    		if ($where)
+	    			$where  .= " and";
+	    		$where  .=  " r.vegetarian>=1";
+	    	}
+	    	if ($where)
+	    		$finalwhere = " where ".$where;
     	}
-    	if (strpos($params->city, 'All') === false){
-    		if ($where)
-    			$where  .= " and";
-    		$where  .=  " r.city='".$params->city."'";
-    	}
-    	if (strpos($params->restaurant, 'All') ===  false){
-    		if ($where)
-    			$where  .= " and";
-    		$where  .=  " r.name='".$params->restaurant."'";
-    	}
-    	if (strpos($params->city, 'All') === false){
-    		if ($where)
-    			$where  .= " and";
-    		$where  .=  " r.max_people>='".$params->guests."'";
-    	}
-    	if ($where)
-    		$finalwhere = " where ".$where;
     	return RestaurantSearch::findBySql(
     			'select r.restaurant_id, r.email, r.description, r.name, r.city, r.country, r.max_people, r.opening_time, r.closing_time, r.address, c.cuisine from restaurants r left join cuisines c on r.cuisine=c.cuisine_id'.$finalwhere)
     			-> all();
     	
+    }
+    
+    public static function findForDropdownByCountry($params){
+    	return RestaurantSearch::findBySql(
+    			'select name, city from restaurants where country="'.$params.'"')
+    			-> all();   	
+    }
+    public static function findForDropdownByCity($params){
+    	return RestaurantSearch::findBySql(
+    			'select name, city from restaurants where city="'.$params.'"')
+    			-> all();
     }
     
 }
