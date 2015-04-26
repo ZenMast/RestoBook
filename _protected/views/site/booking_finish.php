@@ -12,8 +12,7 @@ $this->title = Yii::t('app', 'booking_finish');
     		<div class="col-lg-4">               
             </div>
     		<div class="col-lg-4">
-    			<div class="Information">  
-    				<p>Finish</p>   	
+    			<div class="Information">   	
                     <?php $form = ActiveForm::begin([
                         'method' => 'post',
                         'action' => Url::to(['site/create_booking']),

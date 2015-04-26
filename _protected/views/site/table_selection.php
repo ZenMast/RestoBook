@@ -13,11 +13,6 @@ $this->title = Yii::t('app', 'table_selection');
 <div class="table_selection">
 	<div class="body">
     	<div class="row1">
-            <div class="col-lg-12">  
-                <ul class="pager">
-                    <li class="previous"><a href="index.php?r=site">Previous</a></li>
-                </ul>
-            </div>
     		<div class="col-lg-3">
     	  		<div class="Date1">
                     <?php $form = ActiveForm::begin([
@@ -40,9 +35,6 @@ $this->title = Yii::t('app', 'table_selection');
             	</div> 
             	<?= Html::Label('Restaurant: '.$restaurant_data[0]->name ) ?>  
             	<?= Html::Label('Description, Googlemap etc'  ) ?>     
-            </div>
-            <div class="col-lg-3">  
-                <br>
             </div>
     	</div>
     </div>

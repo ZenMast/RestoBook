@@ -11,8 +11,6 @@ $this->title = Yii::t('app', 'contact_details');
 <div class="details">
     <div class="body_details">
     	<div class="row_details">
-    		<div class="col-lg-4">  
-            </div>
     		<div class="col-lg-4">
     			<div class="Information">   							  	
                     <?php $form = ActiveForm::begin([
@@ -20,9 +18,9 @@ $this->title = Yii::t('app', 'contact_details');
                         'action' => Url::to(['site/booking_confirmation']),
                         ]); ?>
 
-                    <?= $form->field($model, 'name')->textInput(['readonly' => true],['maxlength' => 100])->label('Your Name') ?>
-                    <?= $form->field($model, 'email')->textInput(['readonly' => true])->label('Your Email') ?>
-                    <?= $form->field($model, 'phone')->textInput(['readonly' => true],['maxlength' => 15])->label('Your Phone') ?>
+                    <?= $form->field($model, 'name')->textInput(['readonly' => true]) ?>
+                    <?= $form->field($model, 'email')->textInput(['readonly' => true]) ?>
+                    <?= $form->field($model, 'phone')->textInput(['readonly' => true]) ?>
                     <?= $form->field($model, 'comment')->textArea(['rows' => 6])  ?>
                     <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-primary']) ?>
                     <?= $form->field($model, 'date')->hiddenInput(['readonly' => true])->label(false) ?>
@@ -32,9 +30,6 @@ $this->title = Yii::t('app', 'contact_details');
                     <?php ActiveForm::end(); ?>
                 </div>
     		</div>
-    		<div class="col-lg-4"> 
-    		</div>
     	</div>
-
     </div>
 </div>

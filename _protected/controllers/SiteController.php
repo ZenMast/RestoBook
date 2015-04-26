@@ -453,8 +453,9 @@ public function actionLogin()
         return $this->redirect('login');
     }
     
-	public function actionTable_selection()
-    {
+
+    public function actionTable_selection()
+    {   
     
     	$model = new Reservation();
     	if ($model->load(Yii::$app->request->get()))
@@ -487,15 +488,16 @@ public function actionLogin()
     {
 
         $model = new Booking();
-        $request = Yii::$app->request;
         //$model->table_id = $request->post('Reservation[tables]'); 
         $model->user_id = Yii::$app->user->id;
         $model->table_id  = $_POST['Reservation']['tables'];
         $model->people  = $_POST['Reservation']['people'];
         $model->date  = $_POST['Reservation']['date'];
         $model->time  = $_POST['Reservation']['time'];
+        $model->comment  = $_POST['Reservation']['comment'];
         $model->save();
         //print_r( $model);
+        Yii::$app->getSession()->setFlash('success', 'Your booking is done.Thank you for choosing KVN!');
         return $this->render('booking_finish', [
                     'model' => $model                   
          ]); 
@@ -512,7 +514,7 @@ public function actionLogin()
             $model->email = $user->email;
             $model->phone = $user->phone;
             }
-            
+            //print("Your name ".Yii::$app->user->identity->name);
             //print("Your table".Yii::$app->request->bodyParams);
             //print("Your id is ".Yii::$app->user->id);
             //print("Your name ".Yii::$app->user->identity->name);
