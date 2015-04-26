@@ -19,11 +19,11 @@ $this->title = Yii::t('app', 'table_selection');
                         'method' => 'post',
                         'action' => Url::to(['site/contact_details']),
                         ]); ?>
-                    <?= $form->field($model, 'date')-> widget(TimePicker::className(), [ 'name'  => 'book_date','mode' => 'date',
+                    <?= $form->field($model, 'date')-> widget(TimePicker::className(), ['mode' => 'date',
                         'clientOptions'=>[
                         'dateFormat' => 'yy-mm-dd'
                          ]]) ?>    
-                    <?= $form->field($model, 'time')-> widget(TimePicker::className(), [ 'name'  => 'time','mode' => 'time']) ?>
+                    <?= $form->field($model, 'time')-> widget(TimePicker::className(), ['mode' => 'time']) ?>
                     <?php $tables_array = null;                   
                     for ($i = 0; $i <= max(array_map('count', $tables)); ++$i){
                     	$tables_array[$tables[$i]->table_id] = "Table " . ($i + 1) . " max: " . $tables[$i]->max_people;                   	                    	

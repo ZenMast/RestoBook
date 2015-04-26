@@ -2,8 +2,8 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use kartik\date\DatePicker;
-use kartik\time\TimePicker;
+use yii\jui\DatePicker;
+use janisto\timepicker\TimePicker;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Booking */
@@ -20,18 +20,12 @@ use kartik\time\TimePicker;
 
     <?= $form->field($model, 'user_id')->dropDownList($users) ?>
 
-    <?= $form->field($model, 'date')->widget(DatePicker::classname(), [
-	    'options' => ['placeholder' => 'yyyy-mm-dd'],
-	    'pluginOptions' => [
-	        'autoclose'=>true,
-    		'format' => 'yyyy-mm-dd'
-	    ]
-    ]) ?>
+    <?= $form->field($model, 'date')->widget(TimePicker::className(), [ 'name'  => 'book_date','mode' => 'date',
+                        'clientOptions'=>[
+                        'dateFormat' => 'yy-mm-dd'
+                         ]]) ?>    
 
-    <?= $form->field($model, 'time')->widget(TimePicker::classname(), ['pluginOptions' => [
-        'showMeridian' => false,
-        'minuteStep' => 5,
-    ]]) ?>
+    <?= $form->field($model, 'time')->widget(TimePicker::className(), [ 'name'  => 'time','mode' => 'time']) ?>
 
     <?= $form->field($model, 'comment')->textInput(['maxlength' => 3000]) ?>
 

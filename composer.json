@@ -23,8 +23,6 @@
         "kartik-v/yii2-widget-select2": "*",
         "janisto/yii2-timepicker": "*",
         "istranger/yii2-resource-smart-load": "*",
-        "kartik-v/yii2-widget-datepicker": "*",
-        "kartik-v/yii2-widget-timepicker": "*"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",
