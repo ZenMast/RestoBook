@@ -27,11 +27,8 @@ FilterAsset::register($this);
                     <?= $form->field($model, 'country')->dropDownList(["All Countries"=>"All Countries"] + ArrayHelper::map($restaurants, 'country', 'country'),  ['options' =>[$model->country => ['selected ' => true]], 'onchange'=>'selectedCountry()']) ?>
                     <?= $form->field($model, 'city')->dropDownList(["All Cities"=>"All Cities"] + ArrayHelper::map($restaurants, 'city', 'city'),  ['options' =>[$model->city => ['selected ' => true]], 'onchange'=>'selectedCountry()']) ?>         
                     <?= $form->field($model, 'restaurant')->dropDownList(["All Restaurants"=>"All Restaurants"] + ArrayHelper::map($restaurants, 'name', 'name'),  ['options' =>[$model->restaurant => ['selected ' => true]]]) ?>                  
-                    <?= $form->field($model, 'cuisine')->dropDownList(["All Cuisines"=>"All Cuisines"] + array_filter(ArrayHelper::map($restaurants, 'cuisine', 'cuisine')),  ['options' =>[$model->cuisine => ['selected ' => true]]]) ?>                  
-                    <?= $form->field($model, 'date')-> widget(TimePicker::className(), [ 'name'  => 'book_date','mode' => 'date',  'options'=> ['dateFormat'=>'dd-mm-yy']]) ?>       
-                    <?= $form->field($model, 'time')-> widget(TimePicker::className(), [ 'name'  => 'book_time','mode' => 'time', 'options'=> ['dateFormat'=>'dd-mm-yy']]) ?>
-                    <?= $form->field($model, 'guests') ?>              	              
-               		<?= Html::submitButton(Yii::t('app', 'Filter'), ['class' => 'btn btn-primary']) ?>
+                    <?= $form->field($model, 'cuisine')->dropDownList(["All Cuisines"=>"All Cuisines"] + array_filter(ArrayHelper::map($restaurants, 'cuisine', 'cuisine')),  ['options' =>[$model->cuisine => ['selected ' => true]]]) ?>                              	              
+               		<?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>
                     <?php ActiveForm::end(); ?>                          
 			</div> 
             <div class="col-md-10">
@@ -39,13 +36,10 @@ FilterAsset::register($this);
             <?php for ($i = 0; $i < count($selected_restaurants); ++$i){ ?>
             <?php if ($i % 3 == 0){echo '<div class="row">';} ?>
             <div class="col-md-4">
-                    <?php $img = Html::img('http://www.92y.org/92streety/media/classes_events/food_drink/lg/food_whiskey_lg.jpg', ['width' => '250'])?>
-                    <div class="row"><?= Html::a($img, ['site/table_selection', 'Reservation[restaurant_id]'=>$selected_restaurants[$i]->restaurant_id, 'Reservation[people]'=>$model->guests, 'Reservation[date]'=>$model->date, 'Reservation[time]'=>$model->time]) ?></div>
-                    <div class="row"><?= Html::Label('Restaurant: '.$selected_restaurants[$i]->name ) ?></div>
-                    <div class="row"><?= Html::label('Location: '.$selected_restaurants[$i]->country.", ".$selected_restaurants[$i]->city.", ".$selected_restaurants[$i]->address)?></div>   
-                    <div class="row"><?= Html::label('Opened: '.$selected_restaurants[$i]->opening_time.'-'.$selected_restaurants[$i]->closing_time)?></div> 
-                    <?php if(!empty($selected_restaurants[$i]->cuisine)){echo '<div class="row">'.Html::label('Kitchen: '.$selected_restaurants[$i]->cuisine).'</div>';} ?>
-                    <?php if(!empty($selected_restaurants[$i]->max_people)){echo '<div class="row">'.Html::label('Max: '.$selected_restaurants[$i]->max_people).'</div>';} ?>                                                   
+                    <div class="row text-center"><?= Html::Label($selected_restaurants[$i]->name) ?></div>
+                    <?php $img = Html::img('http://www.92y.org/92streety/media/classes_events/food_drink/lg/food_whiskey_lg.jpg', ['width' => '300'])?>
+                    <div class="row"><?= Html::a($img, ['site/table_selection', 'Reservation[restaurant_id]'=>$selected_restaurants[$i]->restaurant_id]) ?></div>
+                    <div class="row"><?= Html::Label($selected_restaurants[$i]->description)?></div>
             </div>
             <?php if (($i + 1) % 3 == 0 ||$i == sizeof($selected_restaurants)){echo '</div>';} ?>           	
             <?php } ?>	
