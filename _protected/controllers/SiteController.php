@@ -19,10 +19,12 @@ use yii\helpers\ArrayHelper;
 use app\models\CuisineSearch;
 use app\models\RestaurantSearch;
 use app\models\TableSearch;
+use app\models\UserSearch;
 use app\models\TableSelection;
 use app\models\BookingSearch;
 use app\models\FilterForm;
-use app\models\Form;
+use app\models\Reservation;
+use app\models\Booking;
 use Yii;
 use app\models\Restaurant;
 use app\models\app\models;
@@ -133,12 +135,12 @@ class SiteController extends Controller
 	public function actionIndex()
     {
     	$model = new FilterForm();
-    	$restaurants = RestaurantSearch::findAllData([]);
+    	$restaurants = RestaurantSearch::findAllData([]);    	
     	if ($model->load(Yii::$app->request->post())){
-    		$selected_restaurants = RestaurantSearch::findFiltered($model);   					
+    		$selected_restaurants = RestaurantSearch::findFiltered($model); 
     	}
     	else {
-    		$selected_restaurants = $restaurants;         
+    		$selected_restaurants = $restaurants;  		
     	}  
     	return $this->render('index', [
     			'restaurants' => $restaurants,
@@ -206,10 +208,8 @@ public function actionLogin()
         {
             return $this->goHome();
         }
-        // get setting value for 'Login With Email'
-        $lwe = Yii::$app->params['lwe'];
-        // if 'lwe' value is 'true' we instantiate LoginForm in 'lwe' scenario
-        $model = $lwe ? new LoginForm(['scenario' => 'lwe']) : new LoginForm();
+
+        $model = new LoginForm();
         // now we can try to log in the user
         if ($model->load(Yii::$app->request->post()) && $model->login()) 
         {
@@ -370,7 +370,7 @@ public function actionLogin()
 
                 // log this error, so we can debug possible problem easier.
                 Yii::error('Signup failed! 
-                    User '.Html::encode($user->username).' could not sign up.
+                    User '.Html::encode($user->email).' could not sign up.
                     Possible causes: something strange happened while saving user in database.');
 
                 return $this->refresh();
@@ -396,7 +396,7 @@ public function actionLogin()
         if ($model->sendAccountActivationEmail($user)) 
         {
             Yii::$app->session->setFlash('success', 
-                Yii::t('app', 'Hello').' '.Html::encode($user->username). '. ' .
+                Yii::t('app', 'Hello').' '.Html::encode($user->email). '. ' .
                 Yii::t('app', 'To be able to log in, you need to confirm your registration. Please check your email, we have sent you a message.'));
         }
         // email could not be sent
@@ -408,7 +408,7 @@ public function actionLogin()
 
             // log this error, so we can debug possible problem easier.
             Yii::error('Signup failed! 
-                User '.Html::encode($user->username).' could not sign up.
+                User '.Html::encode($user->email).' could not sign up.
                 Possible causes: verification email could not be sent.');
         }
     }
@@ -440,50 +440,121 @@ public function actionLogin()
         {
             Yii::$app->getSession()->setFlash('success', 
                 Yii::t('app', 'Success! You can now log in.').' '.
-                Yii::t('app', 'Thank you').' '.Html::encode($user->username).' '.
+                Yii::t('app', 'Thank you').' '.Html::encode($user->email).' '.
                 Yii::t('app', 'for joining us!'));
         }
         else
         {
             Yii::$app->getSession()->setFlash('error', 
-                Html::encode($user->username).
+                Html::encode($user->email).
                 Yii::t('app', 'your account could not be activated, please contact us!'));
         }
 
         return $this->redirect('login');
     }
-     public function actionTable_selection()
-    {
-        $model = new TableSelection();
-        $restaurant = $_GET['restaurant'];
-        $booking_time = ArrayHelper::map(BookingSearch::findAllbds(), 'booking_id','booking_time');
-        $date = ArrayHelper::map(BookingSearch::findAllbds(), 'booking_id','date');
-    	return $this->render('table_selection', [
-    			'model' => $model,
-    			'booking_time' => $booking_time,
-                'date' => $date,
-    			'restaurant' => $restaurant
-    	]);
-    }    
+    
 
-    public function actionBooking_confirmation()
-    {
-        return $this->render('booking_confirmation');
+    public function actionTable_selection()
+    {   
+    
+    	$model = new Reservation();
+    	if ($model->load(Yii::$app->request->get()))
+    	{
+    		$tables = TableSearch::findAllTablesByRestId($model->restaurant_id);
+    		if ($tables){
+    			$restaurant_data = RestaurantSearch::findAll(['restaurant_id'=>$model->restaurant_id]);
+    			return $this->render('table_selection', [
+    					'model' => $model,
+    					'tables' => $tables,
+    					'restaurant_data'=>$restaurant_data,
+    			]);}
+    			else{
+    				Yii::$app->getSession()->setFlash('warning', Yii::t('app', 'Sorry, there is no tables avaivable in selected restaurant!'));
+    				return $this->goHome();
+    			}
+    	}
     }
-    
-    
-    public function actionContact_details()
-    {
-        $model = new Form();
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) 
-        {
-
-        }else{
-            return $this->render('contact_details', ['model' => $model]);
-        }    
-
-    }
-    
       
+     public function actionBooking_confirmation()
+    {
+
+        $model = new Reservation();
+        $model->load(Yii::$app->request->post());      
+        return $this->render('booking_confirmation', [
+                'model' => $model
+        ]);
+    }
+       public function actionCreate_booking()
+    {
+
+        $model = new Booking();
+        //$model->table_id = $request->post('Reservation[tables]'); 
+        $model->user_id = Yii::$app->user->id;
+        $model->table_id  = $_POST['Reservation']['tables'];
+        $model->people  = $_POST['Reservation']['people'];
+        $model->date  = $_POST['Reservation']['date'];
+        $model->time  = $_POST['Reservation']['time'];
+        $model->comment  = $_POST['Reservation']['comment'];
+        $model->save();
+        //print_r( $model);
+        Yii::$app->getSession()->setFlash('success', 'Your booking is done.Thank you for choosing KVN!');
+        return $this->render('booking_finish', [
+                    'model' => $model                   
+         ]); 
+        
+    }
+    public function actionContact_details()
+    {          
+        $model = new Reservation(); 
+        $model->load(Yii::$app->request->post());
+        if (!Yii::$app->user->isGuest)
+        {
+            if ($user = Yii::$app->user->identity) {
+            $model->name = $user->name;
+            $model->email = $user->email;
+            $model->phone = $user->phone;
+            }
+            //print("Your name ".Yii::$app->user->identity->name);
+            //print("Your table".Yii::$app->request->bodyParams);
+            //print("Your id is ".Yii::$app->user->id);
+            //print("Your name ".Yii::$app->user->identity->name);
+            //print("Your email ".Yii::$app->user->identity->email);
+
+             return $this->render('contact_details', [
+                'model' => $model
+        ]); 
+        }
+        else{
+            return $this->render('contact_details', [
+                'model' => $model
+        ]);
+        }
+    } 
+    
+    public function actionFilterselected()
+    {
+    	$request = Yii::$app->request;    	
+    	if($param = $request->get('country')){
+    		$result = RestaurantSearch::findByCountry($param);
+    	}    	
+    	if($result){
+    		foreach($result as $val){
+    			if($request->get('country')){
+    				echo "<option value='city-".$val->city."'>".$val->city."</option>";
+    			}
+    			else{
+	    			echo "<option value='cuisine-".$val->cuisine."'>".$val->cuisine."</option>";
+	    			echo "<option value='name-".$val->name."'>".$val->name."</option>";
+    			}
+    		}
+    	}
+    	else{
+    		echo "<option>-</option>";
+    	}
+    	
+    	
+       //echo "<option value='test'>test</option>";
+   
+    }
     
 }

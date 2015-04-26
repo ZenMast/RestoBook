@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use kartik\time\TimePicker;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Restaurant */
@@ -14,9 +15,15 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => 200]) ?>
 
-    <?= $form->field($model, 'opening_time')->textInput() ?>
+    <?= $form->field($model, 'opening_time')-> widget(TimePicker::classname(), ['pluginOptions' => [
+        'showMeridian' => false,
+        'minuteStep' => 5,
+    ]]) ?>
 
-    <?= $form->field($model, 'closing_time')->textInput() ?>
+    <?= $form->field($model, 'closing_time')-> widget(TimePicker::classname(), ['pluginOptions' => [
+        'showMeridian' => false,
+        'minuteStep' => 5,
+    ]]) ?>
 
     <?= $form->field($model, 'country')->textInput(['maxlength' => 200]) ?>
 
@@ -26,9 +33,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'cuisine')->dropDownList($cuisines) ?>
 
-    <?= $form->field($model, 'vegetarian')->textInput() ?>
+    <?= $form->field($model, 'vegetarian')->checkbox() ?>
 
-    <?= $form->field($model, 'wifi')->textInput() ?>
+    <?= $form->field($model, 'wifi')->checkbox() ?>
 
     <?= $form->field($model, 'max_people')->textInput() ?>
 

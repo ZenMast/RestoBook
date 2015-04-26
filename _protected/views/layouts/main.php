@@ -27,12 +27,12 @@ AppAsset::register($this);
 <body>
     <?php $this->beginBody() ?>
     <div class="wrap">
-
         <?php
             NavBar::begin([
                 'brandLabel' => Yii::t('app', Yii::$app->name),
                 'brandUrl' => Yii::$app->homeUrl,
                 'options' => [
+                    'id' => 'navbar-first',
                     'class' => 'navbar navbar-default',
                     'renderInnerContainer' => false,
                 ],
@@ -42,19 +42,12 @@ AppAsset::register($this);
             //$menuItems[] = ['label' => Yii::t('app', 'Home'), 'url' => ['/site/index']];
             
 
-            // we do not need to display Article/index, About and Contact pages to editor+ roles
+            // we do not need to display index, About and Contact pages to editor+ roles
             if (!Yii::$app->user->can('editor')) 
             {
-                $menuItems[] = ['label' => Yii::t('app', 'Articles'), 'url' => ['/article/index']];
                 $menuItems[] = ['label' => Yii::t('app', 'About'), 'url' => ['/site/about']];
                 $menuItems[] = ['label' => Yii::t('app', 'Contact'), 'url' => ['/site/contact']];
-            }
-
-            // display Article admin page to editor+ roles
-            if (Yii::$app->user->can('editor'))
-            {
-                $menuItems[] = ['label' => Yii::t('app', 'Articles'), 'url' => ['/article/admin']];
-            }            
+            }         
 
             // display Users to admin+ roles
             if (Yii::$app->user->can('admin'))
@@ -83,7 +76,7 @@ AppAsset::register($this);
             else 
             {
                 $menuItems[] = [
-                    'label' => Yii::t('app', 'Logout'). ' (' . Yii::$app->user->identity->username . ')',
+                    'label' => Yii::t('app', 'Logout'). ' (' . Yii::$app->user->identity->email . ')',
                     'url' => ['/site/logout'],
                     'linkOptions' => ['data-method' => 'post']
                 ];
@@ -96,9 +89,10 @@ AppAsset::register($this);
                       
             
             NavBar::end();
-           
-        ?>
 
+            echo Html::img("http://kodu.ut.ee/~zen_mast/RestoBook/banner.jpg");
+
+        ?>
         <div class="container">
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],

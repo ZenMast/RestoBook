@@ -56,14 +56,14 @@ class AccountActivation extends Model
     }
 
     /**
-     * Returns the username of the user who has activated account.
+     * Returns the email of the user who has activated account.
      *
      * @return string
      */
-    public function getUsername()
+    public function getEmail()
     {
         $user = $this->_user;
 
-        return $user->username;
+        return $user->email;
     }
 }

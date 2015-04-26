@@ -8,12 +8,24 @@ use yii\widgets\ActiveForm;
 /* @var $user app\models\User */
 /* @var $form yii\widgets\ActiveForm */
 /* @var $role app\rbac\models\Role; */
+
+
+
+/*$this->registerJs(
+	'$("document").ready(function(){
+		 $("#pickedRole").change(function(){
+			var e = document.getElementById("pickedRole");
+			if (e.options[e.selectedIndex].value == "restaurantRepresentative") {
+				alert("hi");
+				//insert new field here
+			}
+		});
+	});'
+);*/
 ?>
 <div class="user-form">
 
     <?php $form = ActiveForm::begin(['id' => 'form-user']); ?>
-
-        <?= $form->field($user, 'username') ?>
         
         <?= $form->field($user, 'email') ?>
         
@@ -37,8 +49,10 @@ use yii\widgets\ActiveForm;
         <?php foreach (AuthItem::getRoles() as $item_name): ?>
             <?php $roles[$item_name->name] = $item_name->name ?>
         <?php endforeach ?>
-        <?= $form->field($role, 'item_name')->dropDownList($roles) ?>
-
+        <?= $form->field($role, 'item_name')->dropDownList($roles,
+        		['id'=>'pickedRole']) ?>
+        <?= $form->field($user, 'restaurant_id')->textInput()->label("Restaurant ID (for restaurantRepresentatives")?>
+        
     </div>
     </div>
 
@@ -49,7 +63,7 @@ use yii\widgets\ActiveForm;
 
         <?= Html::a(Yii::t('app', 'Cancel'), ['user/index'], ['class' => 'btn btn-default']) ?>
     </div>
-
+   
     <?php ActiveForm::end(); ?>
  
 </div>

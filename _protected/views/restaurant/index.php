@@ -34,7 +34,10 @@ $this->params['breadcrumbs'][] = $this->title;
             'country',
             'city',
             'address',
-            'cuisine',
+            [
+	            'attribute' => 'cuisine',
+	            'filter' => $cuisines       	
+            ],
 //             'vegetarian',
 //             'wifi',
 //             'max_people',

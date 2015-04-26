@@ -69,7 +69,7 @@ class ResetPasswordForm extends Model
 
         // password strength rule is determined by StrengthValidator 
         // presets are located in: vendor/nenad/yii2-password-strength/presets.php
-        // NOTE: you should use RESET rule because it doesn't require username and email validation
+        // NOTE: you should use RESET rule because it doesn't require email validation
         $strong = [['password'], StrengthValidator::className(), 
                     'preset'=>'reset', 'userAttribute'=>'password'];
 

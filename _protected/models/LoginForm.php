@@ -9,7 +9,6 @@ use Yii;
  */
 class LoginForm extends Model
 {
-    public $username;
     public $email;
     public $password;
     public $rememberMe = true;
@@ -31,8 +30,8 @@ class LoginForm extends Model
             ['email', 'email'],
             ['password', 'validatePassword'],
             ['rememberMe', 'boolean'],
-            // username and password are required on default scenario
-            [['username', 'password'], 'required', 'on' => 'default'],
+            // password are required on default scenario
+            ['password', 'required', 'on' => 'default'],
             // email and password are required on 'lwe' (login with email) scenario
             [['email', 'password'], 'required', 'on' => 'lwe'],
         ];
@@ -54,7 +53,7 @@ class LoginForm extends Model
             if (!$user || !$user->validatePassword($this->password)) 
             {
                 // if scenario is 'lwe' we use email, otherwise we use username
-                $field = ($this->scenario === 'lwe') ? 'email' : 'username' ;
+                $field = 'email' ;
 
                 $this->addError($attribute, 'Incorrect '.$field.' or password.');
             }
@@ -69,7 +68,6 @@ class LoginForm extends Model
     public function attributeLabels()
     {
         return [
-            'username' => Yii::t('app', 'Username'),
             'password' => Yii::t('app', 'Password'),
             'email' => Yii::t('app', 'Email'),
             'rememberMe' => Yii::t('app', 'Remember me'),
@@ -77,7 +75,7 @@ class LoginForm extends Model
     }
 
     /**
-     * Logs in a user using the provided username|email and password.
+     * Logs in a user using the provided email and password.
      *
      * @return bool Whether the user is logged in successfully.
      */
@@ -105,7 +103,7 @@ class LoginForm extends Model
     }
 
     /**
-     * Finds user by username or email in 'lwe' scenario.
+     * Finds user by email in 'lwe' scenario.
      *
      * @return User|null|static
      */
@@ -113,15 +111,7 @@ class LoginForm extends Model
     {
         if ($this->_user === false) 
         {
-            // in 'lwe' scenario we find user by email, otherwise by username
-            if ($this->scenario === 'lwe')
-            {
-                $this->_user = User::findByEmail($this->email);
-            } 
-            else 
-            {
-                $this->_user = User::findByUsername($this->username);
-            } 
+            $this->_user = User::findByEmail($this->email);
         }
 
         return $this->_user;

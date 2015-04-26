@@ -36,17 +36,17 @@ class User extends UserIdentity
         return [
         		
         	['email', 'filter', 'filter' => 'trim'],
-            [['email', 'status', 'phone', 'name'], 'required'],
+            [['email', 'status', 'phone'], 'required'],
    
             ['email', 'email'],
-            ['username', 'string', 'min' => 2, 'max' => 255],
+        		
+        	[['restaurant_id', 'name'], 'safe'],
 
             // password field is required on 'create' scenario
             ['password', 'required', 'on' => 'create'],
             // use passwordStrengthRule() method to determine password strength
             $this->passwordStrengthRule(),
                       
-            ['username', 'unique', 'message' => 'This username has already been taken.'],
             ['email', 'unique', 'message' => 'This email address has already been taken.'],
         		
         ];
@@ -94,7 +94,6 @@ class User extends UserIdentity
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'username' => Yii::t('app', 'Username'),
         	'name' => Yii::t('app', 'Name'),
             'password' => Yii::t('app', 'Password'),
             'email' => Yii::t('app', 'Email'),
@@ -104,6 +103,7 @@ class User extends UserIdentity
             'item_name' => Yii::t('app', 'Role'),
         	'fbid' => Yii::t('app', 'Fbid'),
         	'phone' => Yii::t('app', 'Phone'),
+        	'restaurant_id' => Yii::t('app', 'Restaurant ID')
         ];
     }
 
@@ -118,30 +118,9 @@ class User extends UserIdentity
         return $this->hasOne(Role::className(), ['user_id' => 'id']);
     }  
 
-    /**
-     * Relation with Article model.
-     * 
-     * @return \yii\db\ActiveQuery
-     */
-    public function getArticles()
-    {
-        return $this->hasMany(Article::className(), ['user_id' => 'id']);
-    }
-
 //------------------------------------------------------------------------------------------------//
 // USER FINDERS
 //------------------------------------------------------------------------------------------------//
-
-    /**
-     * Finds user by username.
-     *
-     * @param  string $username
-     * @return static|null
-     */
-    public static function findByUsername($username)
-    {
-        return static::findOne(['username' => $username]);
-    }  
     
     /**
      * Finds user by email.
@@ -153,6 +132,15 @@ class User extends UserIdentity
     {
         return static::findOne(['email' => $email]);
     } 
+    
+    /**
+     * Find user by restaurant_id
+     * @param int $restaurant_id
+     * @return static|null
+     */
+    public static function findByRestaurantId($restaurant_id) {
+    	return static::findOne(['restaurant_id' => $restaurant_id]);
+    }
 
     /**
      * Finds user by password reset token.

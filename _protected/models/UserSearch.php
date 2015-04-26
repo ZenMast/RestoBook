@@ -19,7 +19,7 @@ class UserSearch extends User
     public function rules()
     {
         return [
-            [['username', 'email', 'status', 'item_name'], 'safe'],
+            [['email', 'status', 'item_name', 'restaurant_id'], 'safe'],
         ];
     }
 
@@ -36,7 +36,7 @@ class UserSearch extends User
     
     static public function findAllIds() {
     	return User::find()
-    	->select(['id'])
+    	->select(['id','email'])
     	-> all();
     }
 
@@ -80,10 +80,10 @@ class UserSearch extends User
             'status' => $this->status,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
+        	'restaurant_id' => $this->restaurant_id
         ]);
 
-        $query->andFilterWhere(['like', 'username', $this->username])
-              ->andFilterWhere(['like', 'email', $this->email])
+        $query->andFilterWhere(['like', 'email', $this->email])
               ->andFilterWhere(['like', 'item_name', $this->item_name]);
 
         return $dataProvider;

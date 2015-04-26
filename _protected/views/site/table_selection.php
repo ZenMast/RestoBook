@@ -3,32 +3,39 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use yii\jui\DatePicker;
+use janisto\timepicker\TimePicker;
+use yii\helpers\Url;
+use yii\helpers\ArrayHelper;
+
 $this->title = Yii::t('app', 'table_selection');
-$this->params['breadcrumbs'][] = $this->title;
+
 ?>
 <div class="table_selection">
 	<div class="body">
     	<div class="row1">
     		<div class="col-lg-3">
     	  		<div class="Date1">
-                    <?php $form = ActiveForm::begin(); ?>
-                    <?= $form->field($model, 'date')->dropDownList($date, ['prompt'=>'--Date--']) ?>                    
-                    <?= $form->field($model, 'booking_time')->dropDownList($booking_time, ['prompt'=>'--Booking time--']) ?>
-                    <?= 'You selected: '.$restaurant ?>
-                    <?php ActiveForm::end(); ?>
-            	</div>          
+                    <?php $form = ActiveForm::begin([
+                        'method' => 'post',
+                        'action' => Url::to(['site/contact_details']),
+                        ]); ?>
+                    <?= $form->field($model, 'date')-> widget(TimePicker::className(), ['mode' => 'date',
+                        'clientOptions'=>[
+                        'dateFormat' => 'yy-mm-dd'
+                         ]]) ?>    
+                    <?= $form->field($model, 'time')-> widget(TimePicker::className(), ['mode' => 'time']) ?>
+                    <?php $tables_array = null;                   
+                    for ($i = 0; $i <= max(array_map('count', $tables)); ++$i){
+                    	$tables_array[$tables[$i]->table_id] = "Table " . ($i + 1) . " max: " . $tables[$i]->max_people;                   	                    	
+                    }?>
+                    <?= $form->field($model, 'tables')->dropDownList($tables_array) ?>
+                    <?= $form->field($model, 'people')->textInput(['value' => $model->people])?>
+                    <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-primary']) ?>
+                    <?php ActiveForm::end(); ?>                    
+            	</div> 
+            	<?= Html::Label('Restaurant: '.$restaurant_data[0]->name ) ?>  
+            	<?= Html::Label('Description, Googlemap etc'  ) ?>     
             </div>
-            <div class="col-lg-3">  
-                <br>
-                <br>
-                <br>           
-                <?= Html::a('Next', ['/site/contact_details'], ['class'=>'btn btn-primary btn-sm']) ?>
-                <br>
-                <br>
-                <br>
-                <input class="button" name="button" type="submit" value="Submit"/>
-            </div>
-
     	</div>
     </div>
 </div>

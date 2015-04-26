@@ -3,6 +3,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use kartik\date\DatePicker;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\BookingSearch */
@@ -33,7 +34,19 @@ $this->params['breadcrumbs'][] = $this->title;
             'table_id',
             'people',
             'user_id',
-            'date',
+//             'date',
+            [
+            	'attribute'=>'date',
+            	'filter'=>DatePicker::widget([
+            		'model' => $searchModel,
+            		'attribute' => 'date',
+				    'options' => ['placeholder' => 'yyyy-mm-dd'],
+				    'pluginOptions' => [
+				        'autoclose'=>true,
+				        'format' => 'yyyy-mm-dd'
+				    ]
+			    ]),
+			],
             // 'time',
             // 'comment',
             // 'booking_time',

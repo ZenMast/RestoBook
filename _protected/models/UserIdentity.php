@@ -13,7 +13,6 @@ use Yii;
  * extend from User model.
  *
  * @property integer $id
- * @property string  $username
  * @property string  $password_hash
  * @property string  $password_reset_token
  * @property string  $email
@@ -22,6 +21,7 @@ use Yii;
  * @property integer $status
  * @property integer $created_at
  * @property integer $updated_at
+ * @property integer $restaurant_id
  */
 class UserIdentity extends ActiveRecord implements IdentityInterface
 {

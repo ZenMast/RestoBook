@@ -5,26 +5,30 @@ namespace app\models;
 use yii\base\Model;
 use Yii;
 
-class Form extends Model
+class Reservation extends Model
 {
-	public $email;
+    public $email;
     public $phone;
     public $name;
     public $comment;
-	
+    public $date;
+    public $time;
+    public $people;
+    public $tables;
+    public $restaurant_data;
+    public $restaurant_id;
+
 
     public function rules()
     {
-        return [
+    	
+    	return [
                 
-            [['email','phone', 'name'], 'required'],
-   
+            [['email','phone', 'name','date','time', 'people','tables'], 'required'],
+   			
             ['email', 'email'],
-            ['comment', 'string', 'min' => 20, 'max' => 255]
-
-            
-            
-                
+            ['comment', 'string','max' => 255],                     
+    		['restaurant_id', 'number'],
         ];
     }
     public function attributeLabels()

@@ -38,10 +38,12 @@ class RestaurantController extends AppController
     {
         $searchModel = new RestaurantSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $cuisines = ArrayHelper::map(CuisineSearch::findAllNamesIds(), 'cuisine_id', 'cuisine');
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+        	'cuisines' => $cuisines
         ]);
     }
 

@@ -15,8 +15,8 @@ class FilterForm extends Model
 	public $restaurant;
 	public $cuisine;
 	public $guests = 2;
-	public $booking_time;
 	public $date;
+	public $time;
 
 
 
@@ -29,6 +29,8 @@ class FilterForm extends Model
         	['restaurant', 'string'],
         	['cuisine', 'string'],
         	['guests', 'number'],
+        	['date', 'string'],
+        	['time', 'string'],
         ];
     }
     public function attributeLabels()

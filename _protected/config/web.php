@@ -4,7 +4,7 @@ $params = require(__DIR__ . '/params.php');
 
 $config = [
     'id' => 'basic',
-    'name' => 'KVN',
+    'name' => 'RestoBook',
     //'language' => 'sr',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
@@ -27,8 +27,8 @@ $config = [
         // - template comes with: 'default', 'slate', 'spacelab' and 'cerulean'
         'view' => [
             'theme' => [
-                'pathMap' => ['@app/views' => '@webroot/themes/slate/views'],
-                'baseUrl' => '@web/themes/slate',
+                'pathMap' => ['@app/views' => '@webroot/themes/kvn'],
+                'baseUrl' => '@web/themes/kvn',
             ],
             'class' => 'istranger\rSmartLoad\View',
             'smartLoadConfig' => [
