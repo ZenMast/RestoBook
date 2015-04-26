@@ -27,12 +27,12 @@ AppAsset::register($this);
 <body>
     <?php $this->beginBody() ?>
     <div class="wrap">
-
         <?php
             NavBar::begin([
                 'brandLabel' => Yii::t('app', Yii::$app->name),
                 'brandUrl' => Yii::$app->homeUrl,
                 'options' => [
+                    'id' => 'navbar-first',
                     'class' => 'navbar navbar-default',
                     'renderInnerContainer' => false,
                 ],
@@ -89,9 +89,10 @@ AppAsset::register($this);
                       
             
             NavBar::end();
-           
-        ?>
 
+            echo Html::img("http://kodu.ut.ee/~zen_mast/RestoBook/banner.jpg");
+
+        ?>
         <div class="container">
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],

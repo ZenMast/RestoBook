@@ -49,7 +49,7 @@ class RestaurantSearch extends Restaurant
     
     static public function findAllData() {
     	return RestaurantSearch::findBySql(
-    	 	'select r.restaurant_id, r.name, r.city, r.country, r.max_people, r.opening_time, r.closing_time, r.address, c.cuisine from restaurants r left join cuisines c on r.cuisine=cuisine_id')
+    	 	'select r.restaurant_id, r.description, r.name, r.city, r.country, r.max_people, r.opening_time, r.closing_time, r.address, c.cuisine from restaurants r left join cuisines c on r.cuisine=c.cuisine_id')
     	-> all();
     }
     
@@ -146,7 +146,7 @@ class RestaurantSearch extends Restaurant
     	if ($where)
     		$finalwhere = " where ".$where;
     	return RestaurantSearch::findBySql(
-    			'select r.restaurant_id, r.name, r.city, r.country, r.max_people, r.opening_time, r.closing_time, r.address, c.cuisine from restaurants r left join cuisines c on r.cuisine=cuisine_id'.$finalwhere)
+    			'select r.restaurant_id, r.email, r.description, r.name, r.city, r.country, r.max_people, r.opening_time, r.closing_time, r.address, c.cuisine from restaurants r left join cuisines c on r.cuisine=c.cuisine_id'.$finalwhere)
     			-> all();
     	
     }
