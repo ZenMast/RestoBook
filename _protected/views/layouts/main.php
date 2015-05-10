@@ -85,10 +85,10 @@ AppAsset::register($this);
                 'options' => ['class' => 'navbar-nav pull-right', 'renderInnerContainer' => false ],
                 'items' => $menuItems,
             ]);
-            echo Nav::widget([
-                'options' => ['class' => 'navbar-nav pull-left', 'renderInnerContainer' => false ],
-                'items' => [Html::img("http://kodu.ut.ee/~zen_mast/RestoBook/banner.png")],
-            ]);
+//             echo Nav::widget([
+//                 'options' => ['class' => 'navbar-nav pull-left', 'renderInnerContainer' => false ],
+//                 'items' => [Html::img("http://kodu.ut.ee/~zen_mast/RestoBook/banner.png")],
+//             ]);
             NavBar::end();
         ?>
         <div class="container">
