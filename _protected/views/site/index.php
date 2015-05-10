@@ -28,8 +28,8 @@ FilterAsset::register($this);
                     <?= $form->field($model, 'city')->dropDownList(["All Cities"=>"All Cities"] + ArrayHelper::map($restaurants, 'city', 'city'),  ['options' =>[$model->city => ['selected ' => true]], 'onchange'=>'selectedCountry()']) ?>         
                     <?= $form->field($model, 'restaurant')->dropDownList(["All Restaurants"=>"All Restaurants"] + ArrayHelper::map($restaurants, 'name', 'name'),  ['options' =>[$model->restaurant => ['selected ' => true]]]) ?>                  
                     <?= $form->field($model, 'cuisine')->dropDownList(["All Cuisines"=>"All Cuisines"] + array_filter(ArrayHelper::map($restaurants, 'cuisine', 'cuisine')),  ['options' =>[$model->cuisine => ['selected ' => true]]]) ?>                              	              
-               		<?= $form->field($model, 'vegetarian')->checkbox()?>
-    				<?= $form->field($model, 'wifi')->checkbox() ?>
+<!--               		<?= $form->field($model, 'vegetarian')->checkbox()?>-->
+<!--    				<?= $form->field($model, 'wifi')->checkbox() ?>-->
                		<?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>
                     <?php ActiveForm::end(); ?>                          
 			</div> 
