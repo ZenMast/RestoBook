@@ -11,6 +11,7 @@ import org.testng.annotations.BeforeSuite;
 
 import com.relevantcodes.extentreports.DisplayOrder;
 import com.relevantcodes.extentreports.ExtentReports;
+import com.relevantcodes.extentreports.LogStatus;
 
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -23,7 +24,7 @@ public class TestCommon {
 	 public static  String imageLocation = "C:/Tests/Images/";	 
 	 public static WebDriver driver = new FirefoxDriver();
 	 public static String testSite = "http://localhost/restobook"; //set up site, localhost or production
-	 
+	 public static DBConnection connection;
 
 	 public static String getTestSite() {
 		return testSite;
@@ -63,8 +64,16 @@ public class TestCommon {
 	 @AfterMethod
 	 public static void stop() throws IOException {	 
 	     driver.quit();
-		  extent.endTest();
+		 extent.endTest();
 
+	 }
+	 
+	 public static void compareTwoValues(String actual, String expected, String stepName){		 
+		 if (expected.equals(actual))
+				extent.log(LogStatus.PASS, stepName, "OK");
+		else
+				extent.log(LogStatus.FAIL, stepName, "Expected: " + expected + "Actual: " + actual);
+			
 	 }
 
 

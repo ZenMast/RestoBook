@@ -3,35 +3,29 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Url;
+use yii\widgets\ListView;
 
 $this->title = Yii::t('app', 'booking_confirmation');
 ?>
 <div class="confirmation">
-    <div class="body_confirmation">
-    	<div class="row_confirmation">
-    		<div class="col-lg-4">  
-    			<h1>Booking confirmation:</h1>   	
+    <div class="body_confirmation">   
+    			<h1>Booking confirmation</h1>    			   	
                 <?php $form = ActiveForm::begin([
                     'method' => 'post',
                     'action' => Url::to(['site/create_booking']),
-                ]); ?>
-                <ul>
-                <li> <label>Date</label>: <?= Html::encode($model->date) ?></li>
-                <br>
-                <li><label>Time</label>: <?= Html::encode($model->time) ?></li>
-                <br>
-                <li><label>Name</label>: <?= Html::encode($model->name) ?></li>
-                <br>
-                <li><label>Phone</label>: <?= Html::encode($model->phone) ?></li>
-                <br>
-                <li><label>Table number</label>: <?= Html::encode($model->tables) ?></li>
-                <br>
-                <li><label>People</label>: <?= Html::encode($model->people) ?></li>
-                <br>
-                <li><label>Comment</label>: <?= Html::encode($model->comment) ?></li>
-                <br>
-                <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-primary']) ?>
-                </ul>
+                ]); ?> 
+                 <div class="col-lg-4">             
+                <?= Html::ul(['Date: '.$model->date,
+                		'Time: '.$model->time,
+                		'Name: '.$model->name,
+                		'Phone: '.$model->phone,
+                		'Table number: '.$model->tables,
+                		'People: '.$model->people,
+                		'Comment: '.$model->comment,],
+                		['class' => 'confirmation-list']
+                		)?>
+                <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-primary']) ?> 
+               </div>          
                 <?= $form->field($model, 'date')->hiddenInput(['readonly' => true])->label(false) ?>
                 <?= $form->field($model, 'time')->hiddenInput(['readonly' => true])->label(false) ?>
                 <?= $form->field($model, 'name')->hiddenInput(['readonly' => true])->label(false) ?>
@@ -41,6 +35,5 @@ $this->title = Yii::t('app', 'booking_confirmation');
                 <?= $form->field($model, 'comment')->hiddenInput(['readonly' => true])->label(false) ?>
                 <?php ActiveForm::end(); ?>                   
             </div>
-    	</div>
-    </div>
+        </div>
 </div>

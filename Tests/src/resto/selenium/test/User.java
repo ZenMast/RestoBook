@@ -16,6 +16,7 @@ public class User extends  TestCommon{
 	public String password;
 	public String name;
 	public String phone;
+	public String id;
 	 
 	
 	public User(String email, String pass){
@@ -71,8 +72,12 @@ public class User extends  TestCommon{
 		extent.startTest("Create User");		
 		extent.log(LogStatus.INFO, "User creation", "Predifined user will be created and logged in");
                
-        driver.get(testSite);        
-        driver.findElement(By.partialLinkText("Signup")).click();                       
+        driver.get(testSite);   
+        
+            
+        driver.findElement(By.partialLinkText("Signup")).click();   
+        
+        (new WebDriverWait(driver, 10)).until(ExpectedConditions.elementToBeClickable(By.id("signupform-email")));   
         driver.findElement(By.id("signupform-email")).sendKeys(user.getEmail());
         driver.findElement(By.id("signupform-password")).sendKeys(user.getPassword()); 
         driver.findElement(By.id("signupform-password2")).sendKeys(user.getPassword()); 
@@ -123,10 +128,9 @@ public class User extends  TestCommon{
         
 	}
 
-	//public String getId(User user){
-		//loginWithUser(adminuser);
-		
-	//}
+	public String getId(){
+		 return TestCommon.connection.sqlQuery("select id from user where email='" + email + "'").get(0);		
+	}
 	
 	public String getEmail() {
 		return email;
