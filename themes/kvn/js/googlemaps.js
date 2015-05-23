@@ -1,3 +1,5 @@
+document.write("<script language='javascript' type='text/javascript' src='http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAAjU0EJWnWPMv7oQ-jjS7dYxSPW5CJgpdgO_s4yyMovOaVh_KvvhSfpvagV18eOyDWu7VytS6Bi1CWxw'><\/sc" + "ript>");
+
  var map = null;
     var geocoder = null;
 

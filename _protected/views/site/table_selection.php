@@ -8,42 +8,8 @@ use yii\helpers\Url;
 use yii\helpers\ArrayHelper;
 use app\assets\GooglemapsAsset;
 $this->title = Yii::t('app', 'table_selection');
-//GooglemapsAsset::register($this);
+GooglemapsAsset::register($this);
 ?>
-
-    <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAAjU0EJWnWPMv7oQ-jjS7dYxSPW5CJgpdgO_s4yyMovOaVh_KvvhSfpvagV18eOyDWu7VytS6Bi1CWxw"
-      type="text/javascript"></script>
-    <script>
-
-    var map = null;
-    var geocoder = null;
-
-    function initialize() {
-      if (GBrowserIsCompatible()) {
-        map = new GMap2(document.getElementById("map_canvas"));
-        map.setCenter(new GLatLng(37.4419, -122.1419), 1);
-        map.setUIToDefault();
-        geocoder = new GClientGeocoder();
-      }
-    }
-
-    function showAddress(address) {
-      if (geocoder) {
-        geocoder.getLatLng(
-         address,
-          function(point) {
-            if (!point) {
-              alert(address + " not found");
-            } else {
-              map.setCenter(point, 15);
-              var marker = new GMarker(point, {draggable: true});
-              map.addOverlay(marker);
-            }
-          }
-        );
-      }
-    }
-    </script>
 <div class="table_selection">
 	<div class="body">
     	<div class="row1">
@@ -51,8 +17,7 @@ $this->title = Yii::t('app', 'table_selection');
                 <ul class="pagination">
                     <li class="active"><a href="<?php Url::remember() ;?>">1</a></li>
                     <li><a href="index.php?r=site%2Fcontact_details">2</a></li>
-                    <li><a href="index.php?r=site%2Fbooking_confirmation">3</a></li>
-                    
+                    <li><a href="index.php?r=site%2Fbooking_confirmation">3</a></li>     
                 </ul>
             </div>
     		<div class="col-lg-3">

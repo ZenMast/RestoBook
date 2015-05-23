@@ -15,7 +15,7 @@ use Yii;
 // set @themes alias so we do not have to update baseUrl every time we change themes
  Yii::setAlias('@themes', Yii::$app->view->theme->baseUrl);
 
-class FilterAsset extends AssetBundle
+class GooglemapsAsset extends AssetBundle
 {
     public $basePath = '@webroot';
      public $baseUrl = '@themes';
