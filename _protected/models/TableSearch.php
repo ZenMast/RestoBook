@@ -89,7 +89,7 @@ class TableSearch extends Table
         $query->andFilterWhere([
             'max_people' => $this->max_people,
             'table_id' => $this->table_id,
-            'restaurant_id' => $this->restaurant_id,
+            'restaurants.restaurant_id' => $this->restaurant_id,
         ]);
         
         //For filtering

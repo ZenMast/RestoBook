@@ -12,7 +12,7 @@ use Yii;
 /**
  * UserController implements the CRUD actions for User model.
  */
-class UserController extends AppController
+class UsersController extends AppController
 {
 	
 // 	public function behaviors()
