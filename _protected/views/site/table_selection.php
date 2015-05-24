@@ -15,9 +15,9 @@ GooglemapsAsset::register($this);
     	<div class="row1">
             <div class="text-center">
                 <ul class="pagination">
-                    <li class="active"><a href="<?php Url::remember() ;?>">1</a></li>
-                    <li><a href="index.php?r=site%2Fcontact_details">2</a></li>
-                    <li><a href="index.php?r=site%2Fbooking_confirmation">3</a></li>     
+                    <li class="active"><a href="<?php Url::remember() ;?>">1</a></li>                    
+                    <li><a href="contact_details">2</a></li>
+                    <li><a href="booking_confirmation">3</a></li>     
                 </ul>
             </div>
     		<div class="col-lg-3">
