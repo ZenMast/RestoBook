@@ -200,3 +200,19 @@ hr.article-devider {
 .nz-meter-container {
     display: none;
 }
+.confirmation-list {
+  padding-left: 0;
+  list-style: none;
+  
+}
+
+.confirmation-list > li {
+	margin-left: 0;
+	margin-right: 10%;
+	margin-top: 8%;
+	margin-bottom: 8%;
+}
+#map_canvas{
+    width: 500px;
+    height:400px;
+}

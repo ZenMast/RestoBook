@@ -20,8 +20,7 @@ $this->title = Yii::t('app', 'booking_finish');
                             <?= $form->field($model, 'time')->hiddenInput(['readonly' => true])->label(false) ?>      
                             <?= $form->field($model, 'table_id')->hiddenInput(['readonly' => true])->label(false) ?>
                             <?= $form->field($model, 'people')->hiddenInput(['readonly' => true]) ->label(false) ?>    
-
-
+                            <?= Html::a('Home page', ['/site/index'], ['class'=>'btn btn-primary']) ?>
                         <?php ActiveForm::end(); ?>
                      
                    

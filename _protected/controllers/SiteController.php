@@ -456,7 +456,6 @@ public function actionLogin()
 
     public function actionTable_selection()
     {   
-    
     	$model = new Reservation();
     	if ($model->load(Yii::$app->request->get()))
     	{
@@ -466,13 +465,14 @@ public function actionLogin()
     			return $this->render('table_selection', [
     					'model' => $model,
     					'tables' => $tables,
-    					'restaurant_data'=>$restaurant_data,
+    					'restaurant_data'=>$restaurant_data
     			]);}
     			else{
     				Yii::$app->getSession()->setFlash('warning', Yii::t('app', 'Sorry, there is no tables avaivable in selected restaurant!'));
     				return $this->goHome();
     			}
     	}
+
     }
       
      public function actionBooking_confirmation()
@@ -519,7 +519,6 @@ public function actionLogin()
             //print("Your id is ".Yii::$app->user->id);
             //print("Your name ".Yii::$app->user->identity->name);
             //print("Your email ".Yii::$app->user->identity->email);
-
              return $this->render('contact_details', [
                 'model' => $model
         ]); 
@@ -530,6 +529,7 @@ public function actionLogin()
         ]);
         }
     } 
+
     
 	public function actionFilterselected()
 	{

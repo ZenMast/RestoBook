@@ -6,18 +6,25 @@ use yii\helpers\Url;
 use kartik\select2\Select2;
 use yii\helpers\ArrayHelper;
 use app\models\UserSearch;
+use yii\helpers\BaseUrl;
 $this->title = Yii::t('app', 'contact_details');
 ?>
 <div class="details">
     <div class="body_details">
     	<div class="row_details">
+            <div class="text-center">
+                <ul class="pagination">
+                    <li><a href="<?=yii\helpers\Url::previous() ;?>">1</a></li>
+                    <li class="active"><a href="index.php?r=site%2Fcontact_details">2</a></li>
+                    <li><a href="index.php?r=site%2Fbooking_confirmation">3</a></li>
+                </ul>
+            </div>
     		<div class="col-lg-4">
-    			<div class="Information">   							  	
+    			<div class="Information">    							  	
                     <?php $form = ActiveForm::begin([
                         'method' => 'post',
                         'action' => Url::to(['site/booking_confirmation']),
-                        ]); ?>
-
+                        ]); ?>  
                     <?= $form->field($model, 'name')->textInput(['readonly' => true]) ?>
                     <?= $form->field($model, 'email')->textInput(['readonly' => true]) ?>
                     <?= $form->field($model, 'phone')->textInput(['readonly' => true]) ?>
