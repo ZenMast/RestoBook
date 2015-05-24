@@ -55,5 +55,6 @@ FilterAsset::register($this);
           </div>			                          	
 </div>	
 </div>	
+</div>	
 
 
