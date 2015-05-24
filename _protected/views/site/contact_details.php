@@ -15,8 +15,8 @@ $this->title = Yii::t('app', 'contact_details');
             <div class="text-center">
                 <ul class="pagination">
                     <li><a href="<?=yii\helpers\Url::previous() ;?>">1</a></li>
-                    <li class="active"><a href="index.php?r=site%2Fcontact_details">2</a></li>
-                    <li><a href="index.php?r=site%2Fbooking_confirmation">3</a></li>
+                    <li class="active"><a href="contact_details">2</a></li>
+                    <li><a href="booking_confirmation">3</a></li>
                 </ul>
             </div>
     		<div class="col-lg-4">

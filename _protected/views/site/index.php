@@ -37,7 +37,7 @@ FilterAsset::register($this);
             <div class="container-fluid">
             <?php for ($i = 0; $i < count($selected_restaurants); ++$i){ ?>
             <?php if ($i % 3 == 0){echo '<div class="row">';} ?>
-            <div class="col-md-4">
+            <div class="col-md-4 ">
                     <div class="row text-center"><?= Html::Label($selected_restaurants[$i]->name) ?></div>
                     <?php $img = Html::img('http://rabotai.in/ideas7/img/710.jpg', ['width' => '300'])?>
                     <div class="row"><?= Html::a($img, ['site/table_selection', 'Reservation[restaurant_id]'=>$selected_restaurants[$i]->restaurant_id]) ?></div>
@@ -53,7 +53,6 @@ FilterAsset::register($this);
             </div>	
           </div>	
           </div>			                          	
-</div>	
 </div>	
 </div>	
 
