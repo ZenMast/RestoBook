@@ -82,8 +82,14 @@ $config = [
         ],
         'urlManager' => [
             'class' => 'yii\web\UrlManager',
-            'enablePrettyUrl' => false,
+            'enablePrettyUrl' => true,
             'showScriptName' => false,
+			'enableStrictParsing' => false,
+			'rules' => array(
+                '<controller:\w+>/<id:\d+>' => '<controller>/view',
+                '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
+                '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
+        	),
         ],
         'user' => [
             'identityClass' => 'app\models\UserIdentity',
