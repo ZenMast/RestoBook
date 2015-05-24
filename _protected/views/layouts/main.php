@@ -52,11 +52,11 @@ AppAsset::register($this);
             // display Users to admin+ roles
             if (Yii::$app->user->can('admin'))
             {
-                $menuItems[] = ['label' => Yii::t('app', 'Users'), 'url' => ['/user/index']];
-                $menuItems[] = ['label' => Yii::t('app', 'Restaurants'), 'url' => ['/restaurant/index']];
-                $menuItems[] = ['label' => Yii::t('app', 'Cuisines'), 'url' => ['/cuisine/index']];
-                $menuItems[] = ['label' => Yii::t('app', 'Tables'), 'url' => ['/table/index']];
-                $menuItems[] = ['label' => Yii::t('app', 'Bookings'), 'url' => ['/booking/index']];
+                $menuItems[] = ['label' => Yii::t('app', 'Users'), 'url' => ['/users/index']];
+                $menuItems[] = ['label' => Yii::t('app', 'Restaurants'), 'url' => ['/restaurants/index']];
+                $menuItems[] = ['label' => Yii::t('app', 'Cuisines'), 'url' => ['/cuisines/index']];
+                $menuItems[] = ['label' => Yii::t('app', 'Tables'), 'url' => ['/tables/index']];
+                $menuItems[] = ['label' => Yii::t('app', 'Bookings'), 'url' => ['/bookings/index']];
             }
             
             // display Signup and Login pages to guests of the site

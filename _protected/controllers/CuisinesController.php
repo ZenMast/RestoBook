@@ -3,18 +3,16 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\Table;
-use app\models\TableSearch;
+use app\models\Cuisine;
+use app\models\CuisineSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\helpers\ArrayHelper;
-use app\models\RestaurantSearch;
 
 /**
- * TableController implements the CRUD actions for Table model.
+ * CuisineController implements the CRUD actions for Cuisine model.
  */
-class TableController extends AppController
+class CuisinesController extends AppController
 {
 //     public function behaviors()
 //     {
@@ -29,12 +27,12 @@ class TableController extends AppController
 //     }
 
     /**
-     * Lists all Table models.
+     * Lists all Cuisine models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new TableSearch();
+        $searchModel = new CuisineSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -44,7 +42,7 @@ class TableController extends AppController
     }
 
     /**
-     * Displays a single Table model.
+     * Displays a single Cuisine model.
      * @param integer $id
      * @return mixed
      */
@@ -56,27 +54,25 @@ class TableController extends AppController
     }
 
     /**
-     * Creates a new Table model.
+     * Creates a new Cuisine model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Table();
-        $restaurantIds = ArrayHelper::map(RestaurantSearch::findAllIds(), 'restaurant_id', 'restaurant_id');
-        
+        $model = new Cuisine();
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->table_id]);
+            return $this->redirect(['view', 'id' => $model->cuisine_id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
-            	'restaurantIds' => $restaurantIds,
             ]);
         }
     }
 
     /**
-     * Updates an existing Table model.
+     * Updates an existing Cuisine model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -84,20 +80,18 @@ class TableController extends AppController
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $restaurantIds = ArrayHelper::map(RestaurantSearch::findAllIds(), 'restaurant_id', 'restaurant_id');
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->table_id]);
+            return $this->redirect(['view', 'id' => $model->cuisine_id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
-            	'restaurantIds' => $restaurantIds,
             ]);
         }
     }
 
     /**
-     * Deletes an existing Table model.
+     * Deletes an existing Cuisine model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -110,15 +104,15 @@ class TableController extends AppController
     }
 
     /**
-     * Finds the Table model based on its primary key value.
+     * Finds the Cuisine model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Table the loaded model
+     * @return Cuisine the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Table::findOne($id)) !== null) {
+        if (($model = Cuisine::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
