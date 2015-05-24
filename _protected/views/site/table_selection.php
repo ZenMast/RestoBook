@@ -44,9 +44,9 @@ GooglemapsAsset::register($this);
             <div class="col-lg-6">
                 <body onload="initialize()" onunload="GUnload()">
                     <form action="#" onsubmit="showAddress(this.address.value); return false">
-                        <input type="text" style="width:350px" name="address" value="Please write your restaurant location..." />
-                        <input type="submit" value="Search" />
-                        <div id="map_canvas" style="width: 500px; height: 400px"></div>
+                        <input type="text" name="address" value="Please write your restaurant location..." />
+                        <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>
+                        <div id="map_canvas"></div>
                     </form>
                 </body>
             </div>

@@ -212,3 +212,10 @@ hr.article-devider {
 	margin-top: 8%;
 	margin-bottom: 8%;
 }
+#map_canvas{
+    width: 500px;
+    height:400px;
+}
+input[type="text"] {
+    width: 400px;
+}
